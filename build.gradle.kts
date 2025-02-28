@@ -31,6 +31,7 @@ sourceSets {
         resources.srcDir("src/main/resources")
     }
 }
+
 repositories {
     mavenCentral() // Add Maven Central
     maven("https://jitpack.io") // Required for Mailgun

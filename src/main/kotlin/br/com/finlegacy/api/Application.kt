@@ -33,10 +33,11 @@ fun main(args: Array<String>) {
 
 fun Application.module(testing: Boolean = false) {
 
+    val config = environment.config  // This loads application.conf
     install(Koin) {
         SLF4JLogger()
         modules(
-            applicationModule,
+            applicationModule(config),
             addressModule,
             clinicModule,
             financialInstitutionModule,
@@ -49,6 +50,7 @@ fun Application.module(testing: Boolean = false) {
             occupationStatusModule,
             simulationModule
         )
+        properties(mapOf("config" to config)) // Pass config to Koin
     }
     install(ContentNegotiation) {
         json()
@@ -70,6 +72,6 @@ fun Application.module(testing: Boolean = false) {
     val emailWorker: EmailWorker by inject()
     emailWorker.start()
 
-    configureDatabases(environment.config)
+    configureDatabases(config)
     routes()
 }
