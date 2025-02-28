@@ -1,0 +1,29 @@
+package br.com.finlegacy.api.features.patients.data.mapper
+
+import br.com.finlegacy.api.features.clinics.data.mapper.entityToModel
+import br.com.finlegacy.api.features.maritalStatus.data.mapper.entityToModel
+import br.com.finlegacy.api.features.occupations.data.mapper.entityToModel
+import br.com.finlegacy.api.features.patients.data.entity.PatientEntity
+import br.com.finlegacy.api.features.patients.domain.model.PatientInfo
+
+fun PatientEntity.entityToModel() = PatientInfo(
+    id = this.id.value,
+    fullName = this.fullName,
+    cpf = this.cpf,
+    rg = this.rg,
+    phoneNumber = this.phoneNumber,
+    email = this.email,
+    birthDate = this.birthDate,
+    addressCEP = this.addressCEP,
+    addressStreet = this.addressStreet,
+    addressNumber = this.addressNumber,
+    addressNeighborhood = this.addressNeighborhood,
+    addressCity = this.addressCity,
+    addressState = this.addressState,
+    martialStatus = this.maritalStatus.entityToModel(),
+    spouseName = this.spouseName,
+    spouseCpf = this.spouseCpf,
+    occupation = this.occupation.entityToModel(),
+    income = this.income,
+    clinic = this.clinic.entityToModel()
+)
