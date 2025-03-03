@@ -29,7 +29,7 @@ object PatientTable : LongIdTable("patients") {
     val spouseName = varchar("spouse_name", 250).nullable()  // Allows null values
     val spouseCpf = varchar("spouse_cpf", 50).nullable()    // Allows null values
 
-    val clinic = reference("clinic_id", ClinicTable, onDelete = ReferenceOption.CASCADE)
+    val clinic = reference("clinic_id",ClinicTable, onDelete = ReferenceOption.CASCADE)
 
     init {
         // Uniqueness constraints to ensure these fields are unique within a clinic

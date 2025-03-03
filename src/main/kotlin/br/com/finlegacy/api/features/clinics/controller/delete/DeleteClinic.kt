@@ -1,10 +1,6 @@
 package br.com.finlegacy.api.features.clinics.controller.delete
 
-import br.com.finlegacy.api.core.exceptions.ForbiddenException
-import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
 import br.com.finlegacy.api.core.extensions.*
-import br.com.finlegacy.api.core.jwt.JwtConfig
-import br.com.finlegacy.api.core.result.Result
 import br.com.finlegacy.api.core.result.handleResult
 import br.com.finlegacy.api.features.clinics.domain.service.ClinicService
 import io.ktor.server.routing.*

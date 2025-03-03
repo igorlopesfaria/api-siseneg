@@ -1,15 +1,10 @@
 package br.com.finlegacy.api.features.financialInstitutions.controller.update
 
-import br.com.finlegacy.api.core.exceptions.ForbiddenException
-import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
 import br.com.finlegacy.api.core.extensions.ValidationType
 import br.com.finlegacy.api.core.extensions.extractUidOrRespondUnauthorized
 import br.com.finlegacy.api.core.extensions.respondUnexpectedError
 import br.com.finlegacy.api.core.extensions.validateRequestField
-import br.com.finlegacy.api.core.jwt.JwtConfig
-import br.com.finlegacy.api.core.result.Result
 import br.com.finlegacy.api.core.result.handleResult
-import br.com.finlegacy.api.features.clinics.domain.model.ClinicUpdate
 import br.com.finlegacy.api.features.financialInstitutions.domain.model.FinancialInstitutionUpdate
 import br.com.finlegacy.api.features.financialInstitutions.domain.service.FinancialInstitutionService
 import io.ktor.http.*

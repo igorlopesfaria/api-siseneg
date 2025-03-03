@@ -1,37 +1,37 @@
-package br.com.finlegacy.api.features.clinics.domain.service
+package br.com.finlegacy.api.features.banks.domain.service
 
 import br.com.finlegacy.api.core.exceptions.ForbiddenException
 import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
 import br.com.finlegacy.api.core.result.Result
-import br.com.finlegacy.api.features.clinics.domain.model.ClinicCreate
-import br.com.finlegacy.api.features.clinics.domain.model.ClinicInfo
-import br.com.finlegacy.api.features.clinics.domain.model.ClinicUpdate
-import br.com.finlegacy.api.features.clinics.domain.repository.ClinicRepository
+import br.com.finlegacy.api.features.banks.domain.model.BankCreate
+import br.com.finlegacy.api.features.banks.domain.model.BankInfo
+import br.com.finlegacy.api.features.banks.domain.model.BankUpdate
+import br.com.finlegacy.api.features.banks.domain.repository.BankRepository
 import br.com.finlegacy.api.features.users.domain.repository.UserRepository
 
-class ClinicServiceImpl(
-    private val clinicRepository: ClinicRepository,
+class BankServiceImpl(
+    private val bankRepository: BankRepository,
     private val userRepository: UserRepository
-) : ClinicService {
+) : BankService {
 
-    override suspend fun findById(id: Long, uidLogged: String): Result<ClinicInfo> {
+    override suspend fun findById(id: Long, uidLogged: String): Result<BankInfo> {
         return runCatching {
             if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
-            clinicRepository.findById(id) ?: throw ItemNotFoundException("Clinic")
+            bankRepository.findById(id) ?: throw ItemNotFoundException("Bank")
         }.fold(
             onSuccess = { Result.Success(it) },
             onFailure = { Result.Failure(it) }
         )
     }
 
-    override suspend fun findAll(uidLogged: String): Result<List<ClinicInfo>> {
+    override suspend fun findAll(uidLogged: String): Result<List<BankInfo>> {
         return runCatching {
             if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
-            clinicRepository.findAll()
+            bankRepository.findAll()
         }.fold(
             onSuccess = { Result.Success(it) },
             onFailure = { Result.Failure(it) }
@@ -43,10 +43,10 @@ class ClinicServiceImpl(
             if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
-            if (clinicRepository.delete(id)) {
+            if (bankRepository.delete(id)) {
                 true
             } else {
-                throw ItemNotFoundException("Clinic")
+                throw ItemNotFoundException("Bank")
             }
         }.fold(
             onSuccess = { Result.Success(it) },
@@ -54,24 +54,24 @@ class ClinicServiceImpl(
         )
     }
 
-    override suspend fun update(clinicUpdate: ClinicUpdate, uidLogged: String): Result<ClinicInfo> {
+    override suspend fun update(bankUpdate: BankUpdate, uidLogged: String): Result<BankInfo> {
         return runCatching {
             if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
-            clinicRepository.update(clinicUpdate) ?: throw ItemNotFoundException("Clinic")
+            bankRepository.update(bankUpdate) ?: throw ItemNotFoundException("Bank")
         }.fold(
             onSuccess = { Result.Success(it) },
             onFailure = { Result.Failure(it) }
         )
     }
 
-    override suspend fun create(clinicCreate: ClinicCreate, uidLogged: String): Result<ClinicInfo> {
+    override suspend fun create(bankCreate: BankCreate, uidLogged: String): Result<BankInfo> {
         return runCatching {
             if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
-            clinicRepository.create(clinicCreate)
+            bankRepository.create(bankCreate)
         }.fold(
             onSuccess = { Result.Success(it) },
             onFailure = { Result.Failure(it) }

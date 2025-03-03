@@ -5,9 +5,6 @@ import br.com.finlegacy.api.core.exceptions.ItemDuplicatedException
 import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
 import br.com.finlegacy.api.core.result.Result
 import br.com.finlegacy.api.core.worker.EmailMessage
-import br.com.finlegacy.api.core.worker.EmailWorker
-import br.com.finlegacy.api.features.clinics.domain.repository.ClinicRepository
-import br.com.finlegacy.api.features.procedures.domain.model.ProcedureInfo
 import br.com.finlegacy.api.features.users.domain.model.*
 import br.com.finlegacy.api.features.users.domain.repository.UserRepository
 import com.rabbitmq.client.Channel
@@ -16,7 +13,6 @@ import kotlinx.serialization.json.Json
 
 class UserServiceImpl(
     private val userRepository: UserRepository,
-    private val clinicRepository: ClinicRepository,
     private val channel: Channel
 ) : UserService {
 

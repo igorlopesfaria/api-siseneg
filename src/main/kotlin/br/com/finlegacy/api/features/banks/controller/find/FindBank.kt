@@ -1,12 +1,8 @@
-package br.com.finlegacy.api.features.clinics.controller.find
+package br.com.finlegacy.api.features.banks.controller.find
 
-import br.com.finlegacy.api.core.exceptions.ForbiddenException
-import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
 import br.com.finlegacy.api.core.extensions.*
-import br.com.finlegacy.api.core.jwt.JwtConfig
-import br.com.finlegacy.api.core.result.Result
 import br.com.finlegacy.api.core.result.handleResult
-import br.com.finlegacy.api.features.clinics.domain.service.ClinicService
+import br.com.finlegacy.api.features.banks.domain.service.BankService
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -14,11 +10,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.java.KoinJavaComponent.inject
 
-fun Route.findClinic() {
-    val service: ClinicService by inject(ClinicService::class.java)
+fun Route.findBank() {
+    val service: BankService by inject(BankService::class.java)
 
     authenticate {
-        get("/v1/clinics/{id}") {
+        get("/v1/banks/{id}") {
             try {
                 val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@get
                 val id = call.extractPathParameter<Long>(pathParam = "id", type = ValidationType.ID) ?: return@get
@@ -32,7 +28,7 @@ fun Route.findClinic() {
         }
     }
 
-    get("/v1/clinics") {
+    get("/v1/banks") {
         try {
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@get
 

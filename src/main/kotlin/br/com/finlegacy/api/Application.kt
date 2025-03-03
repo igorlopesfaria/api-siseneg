@@ -6,6 +6,7 @@ import br.com.finlegacy.api.core.worker.EmailWorker
 import br.com.finlegacy.api.di.applicationModule
 import br.com.finlegacy.api.features.address.di.addressModule
 import br.com.finlegacy.api.features.authentication.di.authenticationModule
+import br.com.finlegacy.api.features.banks.di.bankModule
 import br.com.finlegacy.api.features.clinics.di.clinicModule
 import br.com.finlegacy.api.features.financialInstitutions.di.financialInstitutionModule
 import br.com.finlegacy.api.features.maritalStatus.di.maritalStatusModule
@@ -14,6 +15,7 @@ import br.com.finlegacy.api.features.patients.di.patientModule
 import br.com.finlegacy.api.features.procedures.di.procedureModule
 import br.com.finlegacy.api.features.proceduresClinics.di.procedureClinicModule
 import br.com.finlegacy.api.features.simulations.di.simulationModule
+import br.com.finlegacy.api.features.userProfiles.di.userProfileModule
 import br.com.finlegacy.api.features.users.di.userModule
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -40,9 +42,11 @@ fun Application.module(testing: Boolean = false) {
             applicationModule(config),
             addressModule,
             clinicModule,
+            bankModule,
             financialInstitutionModule,
             procedureModule,
             procedureClinicModule,
+            userProfileModule,
             userModule,
             authenticationModule,
             maritalStatusModule,

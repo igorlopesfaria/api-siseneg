@@ -1,8 +1,6 @@
 package br.com.finlegacy.api.features.proceduresClinics.domain.repository
 
-import br.com.finlegacy.api.features.clinics.data.entity.ClinicEntity
 import br.com.finlegacy.api.features.clinics.domain.model.ClinicInfo
-import br.com.finlegacy.api.features.procedures.data.entity.ProcedureEntity
 import br.com.finlegacy.api.features.procedures.domain.model.ProcedureInfo
 import br.com.finlegacy.api.features.proceduresClinics.domain.model.ProcedureClinicInfo
 

@@ -1,5 +1,6 @@
 package br.com.finlegacy.api.core.extensions
 
+import br.com.finlegacy.api.features.banks.data.table.BankTable
 import br.com.finlegacy.api.features.clinics.data.table.ClinicTable
 import br.com.finlegacy.api.features.financialInstitutions.data.table.FinancialInstitutionTable
 import br.com.finlegacy.api.features.maritalStatus.data.table.MaritalStatusTable
@@ -25,6 +26,7 @@ fun Application.configureDatabases(config: ApplicationConfig) {
     Database.connect(url= url, driver = driver, user = user, password = password)
 
     transaction {
+        SchemaUtils.create(BankTable)
         SchemaUtils.create(ClinicTable)
         SchemaUtils.create(FinancialInstitutionTable)
         SchemaUtils.create(ProcedureTable)

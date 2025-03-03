@@ -9,5 +9,5 @@ import org.koin.dsl.module
 
 val userModule = module {
     single { UserRepositoryImpl() } bind UserRepository::class
-    single { UserServiceImpl(get(), get(), get()) } bind UserService::class
+    single { UserServiceImpl(get(), get()) } bind UserService::class
 }

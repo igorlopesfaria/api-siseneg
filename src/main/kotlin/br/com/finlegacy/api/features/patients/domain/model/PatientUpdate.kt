@@ -1,7 +1,5 @@
 package br.com.finlegacy.api.features.patients.domain.model
 
-import br.com.finlegacy.api.features.clinics.domain.model.ClinicInfo
-import br.com.finlegacy.api.features.maritalStatus.domain.model.MaritalStatusInfo
 import kotlinx.serialization.Serializable
 
 @Serializable

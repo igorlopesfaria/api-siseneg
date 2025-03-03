@@ -1,12 +1,8 @@
 package br.com.finlegacy.api.features.proceduresClinics.data
 
 import br.com.finlegacy.api.core.transaction.suspendTransaction
-import br.com.finlegacy.api.features.clinics.data.entity.ClinicEntity
-import br.com.finlegacy.api.features.clinics.data.mapper.entityToModel
 import br.com.finlegacy.api.features.clinics.data.table.ClinicTable
 import br.com.finlegacy.api.features.clinics.domain.model.ClinicInfo
-import br.com.finlegacy.api.features.procedures.data.entity.ProcedureEntity
-import br.com.finlegacy.api.features.procedures.data.mapper.entityToModel
 import br.com.finlegacy.api.features.procedures.data.table.ProcedureTable
 import br.com.finlegacy.api.features.procedures.domain.model.ProcedureInfo
 import br.com.finlegacy.api.features.proceduresClinics.data.entity.ProcedureClinicEntity

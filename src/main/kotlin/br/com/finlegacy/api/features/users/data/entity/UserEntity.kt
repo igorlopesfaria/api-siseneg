@@ -13,7 +13,6 @@ class UserEntity(id: EntityID<Long>) : LongEntity(id) {
     var uid by UserTable.uid
     var userName by UserTable.userName
     var password by UserTable.password
-    var isAdmin by UserTable.isAdmin
     var userProfile by UserProfileEntity referencedOn UserTable.userProfileId  // User belongs to one Clinic
     var clinic by ClinicEntity referencedOn UserTable.clinicId  // User belongs to one Clinic
 }
