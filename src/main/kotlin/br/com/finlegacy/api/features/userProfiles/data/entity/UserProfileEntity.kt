@@ -1,6 +1,6 @@
-package br.com.finlegacy.api.features.userProfile.data.entity
+package br.com.finlegacy.api.features.userProfiles.data.entity
 
-import br.com.finlegacy.api.features.userProfile.data.table.UserProfileTable
+import br.com.finlegacy.api.features.userProfiles.data.table.UserProfileTable
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

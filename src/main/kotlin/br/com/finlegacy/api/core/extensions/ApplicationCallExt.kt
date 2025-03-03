@@ -54,7 +54,7 @@ suspend inline fun <reified T> ApplicationCall.extractPathParameter(pathParam: S
 
 
 enum class ValidationType {
-    NOT_BLANK, ID, EMAIL, CNPJ, CPF, PHONE, CEP, RG, BIRTH_DATE, PASSWORD, PRICE
+    NOT_BLANK, ID, EMAIL, CNPJ, CPF, PHONE, CEP, RG, BIRTH_DATE, PASSWORD, PRICE, BOOL
 }
 
 
@@ -94,6 +94,7 @@ suspend fun ApplicationCall.validateRequestField(value: String?, customFieldMess
         PASSWORD -> value.isValidPassword()
         PRICE -> value.isValidPrice()
         CEP -> value.isValidCEP()
+        BOOL -> value.isValidBoolean()
     }
 
     return if (!isValid) {

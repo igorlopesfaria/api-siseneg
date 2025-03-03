@@ -1,12 +1,12 @@
-package br.com.finlegacy.api.features.userProfile.data
+package br.com.finlegacy.api.features.userProfiles.data
 
 import br.com.finlegacy.api.core.transaction.suspendTransaction
-import br.com.finlegacy.api.features.userProfile.data.entity.UserProfileEntity
-import br.com.finlegacy.api.features.userProfile.data.mapper.entityToModel
-import br.com.finlegacy.api.features.userProfile.domain.model.UserProfileCreate
-import br.com.finlegacy.api.features.userProfile.domain.model.UserProfileInfo
-import br.com.finlegacy.api.features.userProfile.domain.model.UserProfileUpdate
-import br.com.finlegacy.api.features.userProfile.domain.respository.UserProfileRepository
+import br.com.finlegacy.api.features.userProfiles.data.entity.UserProfileEntity
+import br.com.finlegacy.api.features.userProfiles.data.mapper.entityToModel
+import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileCreate
+import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileInfo
+import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileUpdate
+import br.com.finlegacy.api.features.userProfiles.domain.repository.UserProfileRepository
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 

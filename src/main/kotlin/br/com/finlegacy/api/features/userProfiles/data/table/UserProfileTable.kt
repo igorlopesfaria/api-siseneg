@@ -1,4 +1,4 @@
-package br.com.finlegacy.api.features.userProfile.data.table
+package br.com.finlegacy.api.features.userProfiles.data.table
 
 import org.jetbrains.exposed.dao.id.LongIdTable
 

@@ -8,6 +8,7 @@ data class UserUpdate (
     val uid: String,
     val userName: String,
     val password: String,
+    val userProfileId: Long
 ){
     fun encryptPassword(): String {
         return password.toEncrypt()

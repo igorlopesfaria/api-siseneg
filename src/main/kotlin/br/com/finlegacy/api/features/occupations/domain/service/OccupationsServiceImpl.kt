@@ -35,7 +35,7 @@ class OccupationServiceImpl(
 
     override suspend fun delete(id: Long, uidLogged: String): Result<Boolean> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             if (maritalStatusRepository.delete(id)) {
@@ -52,7 +52,7 @@ class OccupationServiceImpl(
     override suspend fun update(maritalStatusUpdate: OccupationUpdate, uidLogged: String): Result<OccupationInfo> {
 
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             maritalStatusRepository.update(maritalStatusUpdate) ?: throw ItemNotFoundException("Occupation")
@@ -64,7 +64,7 @@ class OccupationServiceImpl(
 
     override suspend fun create(maritalStatusCreate: OccupationCreate, uidLogged: String): Result<OccupationInfo> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             maritalStatusRepository.create(maritalStatusCreate)

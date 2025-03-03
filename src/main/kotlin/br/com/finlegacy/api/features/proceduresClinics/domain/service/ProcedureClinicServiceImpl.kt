@@ -23,7 +23,7 @@ class ProcedureClinicServiceImpl(
         return runCatching {
             val loggedUser = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
 
-            if (!loggedUser.isAdmin) throw ForbiddenException()
+            if (!loggedUser.userProfile.isSysAdmin) throw ForbiddenException()
 
             val procedure = procedureRepository.findById(procedureId) ?: throw ItemNotFoundException("Procedure")
 
@@ -56,7 +56,7 @@ class ProcedureClinicServiceImpl(
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
 
-            if(!userLogged.isAdmin && userLogged.clinic.id != clinicId) throw ForbiddenException()
+            if(!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != clinicId) throw ForbiddenException()
 
             procedureClinicRepository.findProceduresByClinicId(clinicId)
         }.fold(
@@ -67,7 +67,7 @@ class ProcedureClinicServiceImpl(
 
     override suspend fun findClinicByProcedureId(procedureId: Long, uidLogged:String): Result<List<ProcedureClinicInfo>> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
             procedureClinicRepository.findClinicByProcedureId(procedureId)
         }.fold(

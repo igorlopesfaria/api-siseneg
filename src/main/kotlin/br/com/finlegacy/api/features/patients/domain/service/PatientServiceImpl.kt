@@ -24,7 +24,7 @@ class PatientServiceImpl(
             val patient = patientRepository.findById(id) ?: throw ItemNotFoundException("Patient")
 
             // Check permissions
-            if (!userLogged.isAdmin && userLogged.clinic.id != patient.clinic.id) {
+            if (!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != patient.clinic.id) {
                 throw ForbiddenException()
             }
 
@@ -50,7 +50,7 @@ class PatientServiceImpl(
             val patient = patientRepository.findById(id) ?: throw ItemNotFoundException("Patient")
 
             // Check permissions
-            if (!userLogged.isAdmin && userLogged.clinic.id != patient.clinic.id) {
+            if (!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != patient.clinic.id) {
                 throw ForbiddenException()
             }
             patientRepository.delete(id) || throw ItemNotFoundException("Patient")

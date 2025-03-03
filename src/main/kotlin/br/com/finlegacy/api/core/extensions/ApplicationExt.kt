@@ -8,7 +8,7 @@ import br.com.finlegacy.api.features.patients.data.table.PatientTable
 import br.com.finlegacy.api.features.procedures.data.table.ProcedureTable
 import br.com.finlegacy.api.features.proceduresClinics.data.table.ProcedureClinicTable
 import br.com.finlegacy.api.features.simulations.data.table.SimulationTable
-import br.com.finlegacy.api.features.userProfile.data.table.UserProfileTable
+import br.com.finlegacy.api.features.userProfiles.data.table.UserProfileTable
 import br.com.finlegacy.api.features.users.data.table.UserTable
 import io.ktor.server.application.*
 import io.ktor.server.config.*

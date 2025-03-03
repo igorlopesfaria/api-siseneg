@@ -89,6 +89,10 @@ fun String.isValidPassword(): Boolean {
     return this.matches(passwordRegex)
 }
 
+fun String.isValidBoolean(): Boolean {
+    return this.equals("true", ignoreCase = true) || this.equals("false", ignoreCase = true)
+}
+
 // Extension function to hash a string using bcrypt
 fun String.toEncrypt(): String {
     val md = MessageDigest.getInstance("MD5")

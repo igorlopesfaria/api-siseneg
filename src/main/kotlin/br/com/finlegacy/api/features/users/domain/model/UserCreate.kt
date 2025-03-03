@@ -7,7 +7,8 @@ import kotlinx.serialization.Serializable
 data class UserCreate (
     val userName: String,
     val password: String,
-    val clinicId: Long
+    val clinicId: Long,
+    val userProfileId: Long
 ){
     fun encryptPassword(): String {
         return password.toEncrypt()

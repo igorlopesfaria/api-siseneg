@@ -35,7 +35,7 @@ class FinancialInstitutionServiceImpl(
 
     override suspend fun delete(id: Long, uidLogged: String): Result<Boolean> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             if (financialInstitutionRepository.delete(id)) {
@@ -52,7 +52,7 @@ class FinancialInstitutionServiceImpl(
     override suspend fun update(financialInstitutionUpdate: FinancialInstitutionUpdate, uidLogged: String): Result<FinancialInstitutionInfo> {
 
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             financialInstitutionRepository.update(financialInstitutionUpdate) ?: throw ItemNotFoundException("Financial Institution")
@@ -64,7 +64,7 @@ class FinancialInstitutionServiceImpl(
 
     override suspend fun create(financialInstitutionCreate: FinancialInstitutionCreate, uidLogged: String): Result<FinancialInstitutionInfo> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             financialInstitutionRepository.create(financialInstitutionCreate)

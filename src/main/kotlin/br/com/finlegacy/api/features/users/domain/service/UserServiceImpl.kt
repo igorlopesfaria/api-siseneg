@@ -24,7 +24,7 @@ class UserServiceImpl(
     override suspend fun findByUid(uid: String, uidLogged: String): Result<UserInfo> {
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("User Logged")
-            if (!userLogged.isAdmin && userLogged.uid != uid) throw ForbiddenException()
+            if (!userLogged.userProfile.isSysAdmin && userLogged.uid != uid) throw ForbiddenException()
             userRepository.findByUid(uid) ?: throw ItemNotFoundException("User")
         }.fold(
             onSuccess = { Result.Success(it) },
@@ -35,7 +35,7 @@ class UserServiceImpl(
     override suspend fun findAll( uidLogged: String): Result<List<UserInfo>> {
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("User Logged")
-            if (!userLogged.isAdmin) throw ForbiddenException()
+            if (!userLogged.userProfile.isSysAdmin) throw ForbiddenException()
             userRepository.findAll()
         }.fold(
             onSuccess = { Result.Success(it) },
@@ -63,7 +63,7 @@ class UserServiceImpl(
     override suspend fun delete(uid: String, uidLogged: String): Result<Boolean> {
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("User Logged")
-            if (!userLogged.isAdmin && userLogged.uid != uid) throw ForbiddenException()
+            if (!userLogged.userProfile.isSysAdmin && userLogged.uid != uid) throw ForbiddenException()
 
             if (userRepository.delete(uid)) true else throw ItemNotFoundException("User")
         }.fold(
@@ -75,7 +75,7 @@ class UserServiceImpl(
     override suspend fun update(userUpdate: UserUpdate, uidLogged: String): Result<UserInfo> {
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("Logged user")
-            if (!userLogged.isAdmin && userLogged.uid != userUpdate.uid) throw ForbiddenException()
+            if (!userLogged.userProfile.isSysAdmin && userLogged.uid != userUpdate.uid) throw ForbiddenException()
 
             userRepository.findByUserName(userUpdate.userName)?.let {
                 if (it.uid != userUpdate.uid) throw ItemDuplicatedException("email")
@@ -91,7 +91,7 @@ class UserServiceImpl(
         return runCatching {
 
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("Logged user")
-            if (!userLogged.isAdmin) throw ForbiddenException()
+            if (!userLogged.userProfile.isSysAdmin) throw ForbiddenException()
 
             userRepository.findByUserName(userCreate.userName)?.let {
                 throw ItemDuplicatedException("email")

@@ -24,7 +24,7 @@ class SimulationServiceImpl(
             val simulation = simulationRepository.findById(id) ?: throw ItemNotFoundException("Simulation")
 
             // Check permissions
-            if (!userLogged.isAdmin && userLogged.clinic.id != simulation.user.clinic.id) {
+            if (!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != simulation.user.clinic.id) {
                 throw ForbiddenException()
             }
 
@@ -39,7 +39,7 @@ class SimulationServiceImpl(
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("User Logged")
 
-            if(userLogged.isAdmin) {
+            if(userLogged.userProfile.isSysAdmin) {
                simulationRepository.findAll()
             } else {
                 simulationRepository.findAllByClinicId(userLogged.clinic.id)
@@ -59,7 +59,7 @@ class SimulationServiceImpl(
                 ?: throw ItemNotFoundException("Simulation")
 
             // Check permissions
-            if (!userLogged.isAdmin && userLogged.clinic.id != simulation.user.clinic.id) {
+            if (!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != simulation.user.clinic.id) {
                 throw ForbiddenException()
             }
 
@@ -81,7 +81,7 @@ class SimulationServiceImpl(
                 ?: throw ItemNotFoundException("User Logged")
 
             val patient = patientRepository.findById(simulationUpdate.patientId) ?: throw ItemNotFoundException("Patient")
-            if (!userLogged.isAdmin && userLogged.clinic.id != patient.clinic.id) {
+            if (!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != patient.clinic.id) {
                 throw ForbiddenException()
             }
 
@@ -89,7 +89,7 @@ class SimulationServiceImpl(
                 ?: throw ItemNotFoundException("Simulation")
 
             // Check permissions
-            if (!userLogged.isAdmin && userLogged.clinic.id != simulation.user.clinic.id) {
+            if (!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != simulation.user.clinic.id) {
                 throw ForbiddenException()
             }
 
@@ -106,7 +106,7 @@ class SimulationServiceImpl(
                 ?: throw ItemNotFoundException("User Logged")
 
             val patient = patientRepository.findById(simulationCreate.patientId) ?: throw ItemNotFoundException("Patient")
-            if (!userLogged.isAdmin && userLogged.clinic.id != patient.clinic.id) {
+            if (!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != patient.clinic.id) {
                 throw ForbiddenException()
             }
             simulationRepository.create(simulationCreate, uidLogged)

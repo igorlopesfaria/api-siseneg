@@ -1,8 +1,8 @@
-package br.com.finlegacy.api.features.userProfile.domain.respository
+package br.com.finlegacy.api.features.userProfiles.domain.repository
 
-import br.com.finlegacy.api.features.userProfile.domain.model.UserProfileCreate
-import br.com.finlegacy.api.features.userProfile.domain.model.UserProfileInfo
-import br.com.finlegacy.api.features.userProfile.domain.model.UserProfileUpdate
+import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileCreate
+import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileInfo
+import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileUpdate
 
 interface UserProfileRepository {
     suspend fun findById(id: Long): UserProfileInfo?

@@ -35,7 +35,7 @@ class MaritalStatusServiceImpl(
 
     override suspend fun delete(id: Long, uidLogged: String): Result<Boolean> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             if (maritalStatusRepository.delete(id)) {
@@ -52,7 +52,7 @@ class MaritalStatusServiceImpl(
     override suspend fun update(maritalStatusUpdate: MaritalStatusUpdate, uidLogged: String): Result<MaritalStatusInfo> {
 
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             maritalStatusRepository.update(maritalStatusUpdate) ?: throw ItemNotFoundException("Marital Status")
@@ -64,7 +64,7 @@ class MaritalStatusServiceImpl(
 
     override suspend fun create(maritalStatusCreate: MaritalStatusCreate, uidLogged: String): Result<MaritalStatusInfo> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true)
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
                 throw ForbiddenException()
 
             maritalStatusRepository.create(maritalStatusCreate)

@@ -16,7 +16,7 @@ class ProcedureServiceImpl(
 
     override suspend fun findById(id: Long, uidLogged: String): Result<ProcedureInfo> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true) throw ForbiddenException()
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true) throw ForbiddenException()
 
             procedureRepository.findById(id) ?: throw ItemNotFoundException("Procedure")
         }.fold(
@@ -27,7 +27,7 @@ class ProcedureServiceImpl(
 
     override suspend fun findAll(uidLogged: String): Result<List<ProcedureInfo>> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true) throw ForbiddenException()
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true) throw ForbiddenException()
 
             procedureRepository.findAll()
         }.fold(
@@ -38,7 +38,7 @@ class ProcedureServiceImpl(
 
     override suspend fun delete(id: Long, uidLogged: String): Result<Boolean> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true) throw ForbiddenException()
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true) throw ForbiddenException()
 
             if (procedureRepository.delete(id)) true else throw ItemNotFoundException("Procedure")
         }.fold(
@@ -49,7 +49,7 @@ class ProcedureServiceImpl(
 
     override suspend fun update(procedureUpdate: ProcedureUpdate, uidLogged: String): Result<ProcedureInfo> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true) throw ForbiddenException()
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true) throw ForbiddenException()
 
             procedureRepository.update(procedureUpdate) ?: throw ItemNotFoundException("Procedure")
         }.fold(
@@ -60,7 +60,7 @@ class ProcedureServiceImpl(
 
     override suspend fun create(procedureCreate: ProcedureCreate, uidLogged: String): Result<ProcedureInfo> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.isAdmin != true) throw ForbiddenException()
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true) throw ForbiddenException()
 
             procedureRepository.create(procedureCreate)
         }.fold(
