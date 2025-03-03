@@ -44,12 +44,10 @@ fun applicationModule(applicationConfig: ApplicationConfig) = module {
 
     // Retrieve SendGrid API Key from configuration
     single {
-        val sendGridApiKey = applicationConfig.config("ktor.sendgrid").property("apiKey").getString()
-
         SendGridService(
             httpClient = get(),
-            apiKey = sendGridApiKey,
-            from = "igorlopesfaria@gmail.com" // Replace with a verified email in your SendGrid account
+            apiKey = applicationConfig.config("ktor.sendgrid").property("apiKey").getString(),
+            from = applicationConfig.config("ktor.sendgrid").property("from").getString() // Replace with a verified email in your SendGrid account
         )
     }
 

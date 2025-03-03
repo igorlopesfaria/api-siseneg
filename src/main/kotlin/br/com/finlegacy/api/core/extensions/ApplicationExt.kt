@@ -8,6 +8,7 @@ import br.com.finlegacy.api.features.patients.data.table.PatientTable
 import br.com.finlegacy.api.features.procedures.data.table.ProcedureTable
 import br.com.finlegacy.api.features.proceduresClinics.data.table.ProcedureClinicTable
 import br.com.finlegacy.api.features.simulations.data.table.SimulationTable
+import br.com.finlegacy.api.features.userProfile.data.table.UserProfileTable
 import br.com.finlegacy.api.features.users.data.table.UserTable
 import io.ktor.server.application.*
 import io.ktor.server.config.*
@@ -28,6 +29,7 @@ fun Application.configureDatabases(config: ApplicationConfig) {
         SchemaUtils.create(FinancialInstitutionTable)
         SchemaUtils.create(ProcedureTable)
         SchemaUtils.create(ProcedureClinicTable)
+        SchemaUtils.create(UserProfileTable)
         SchemaUtils.create(UserTable)
         SchemaUtils.create(MaritalStatusTable)
         SchemaUtils.create(OccupationTable)
