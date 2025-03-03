@@ -36,6 +36,7 @@ class UserProfileRepositoryImpl: UserProfileRepository {
         addLogger(StdOutSqlLogger)
         UserProfileEntity.findByIdAndUpdate(userProfileUpdate.id) { item ->
             item.name = userProfileUpdate.name
+            item.isAdmin = userProfileUpdate.isAdmin
             item.isSysAdmin = userProfileUpdate.isSysAdmin
         }?.entityToModel()
     }
@@ -44,6 +45,7 @@ class UserProfileRepositoryImpl: UserProfileRepository {
     override suspend fun create(userProfileCreate: UserProfileCreate): UserProfileInfo = suspendTransaction {
         UserProfileEntity.new {
             name = userProfileCreate.name
+            isAdmin = userProfileCreate.isAdmin
             isSysAdmin = userProfileCreate.isSysAdmin
         }.entityToModel()
     }

@@ -25,6 +25,28 @@ fun Route.createClinic() {
             call.validateRequestField(value = clinicCreate.cnpj, type = ValidationType.CNPJ).let { isValid ->
                 if (!isValid) return@post
             }
+
+            call.validateRequestField(value = clinicCreate.addressInfo.cep, customFieldMessageError = "address.CEP", type = ValidationType.CEP).let { isValid ->
+                if (!isValid) return@post
+            }
+            call.validateRequestField(value = clinicCreate.addressInfo.city, customFieldMessageError = "address.city", type = ValidationType.NOT_BLANK).let { isValid ->
+                if (!isValid) return@post
+            }
+            call.validateRequestField(value = clinicCreate.addressInfo.state, customFieldMessageError = "address.state", type = ValidationType.NOT_BLANK).let { isValid ->
+                if (!isValid) return@post
+            }
+
+
+            call.validateRequestField(value = clinicCreate.bankId.toString(), customFieldMessageError = "bankId", type = ValidationType.ID).let { isValid ->
+                if (!isValid) return@post
+            }
+            call.validateRequestField(value = clinicCreate.bankBranchCode, customFieldMessageError = "bankBranchCode", type = ValidationType.NOT_BLANK).let { isValid ->
+                if (!isValid) return@post
+            }
+            call.validateRequestField(value = clinicCreate.bankAccountNumber, customFieldMessageError = "bankAccountNumber", type = ValidationType.NOT_BLANK).let { isValid ->
+                if (!isValid) return@post
+            }
+
             service.create(clinicCreate, uidLogged).handleResult(call) { data ->
                 call.respond(HttpStatusCode.Created, data)
             }
@@ -33,4 +55,6 @@ fun Route.createClinic() {
         }
     }
 }
+
+
 

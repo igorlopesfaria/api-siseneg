@@ -8,5 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 class BankEntity (id: EntityID<Long>) : LongEntity(id) {
     companion object : LongEntityClass<BankEntity>(BankTable)
     var name by BankTable.name
+    var code by BankTable.code
+
 }
 

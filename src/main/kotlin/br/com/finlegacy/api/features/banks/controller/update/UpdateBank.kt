@@ -23,6 +23,9 @@ fun Route.updateBank() {
             call.validateRequestField(value = bankUpdate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@put
             }
+            call.validateRequestField(value = bankUpdate.code, customFieldMessageError = "code", type = ValidationType.ID).let { isValid ->
+                if (!isValid) return@put
+            }
 
             service.update(bankUpdate, uidLogged).handleResult(call) {
                 call.respond(HttpStatusCode.OK)

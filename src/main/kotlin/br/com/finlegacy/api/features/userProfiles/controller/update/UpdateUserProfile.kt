@@ -26,7 +26,9 @@ fun Route.updateUserProfile() {
             call.validateRequestField(value = userProfileUpdate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@put
             }
-
+            call.validateRequestField(value = userProfileUpdate.isAdmin.toString(), customFieldMessageError = "isAdmin", type = ValidationType.BOOL).let { isValid ->
+                if (!isValid) return@put
+            }
             call.validateRequestField(value = userProfileUpdate.isSysAdmin.toString(), customFieldMessageError = "isSysAdmin", type = ValidationType.BOOL).let { isValid ->
                 if (!isValid) return@put
             }

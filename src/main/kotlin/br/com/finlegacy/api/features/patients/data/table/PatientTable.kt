@@ -1,6 +1,7 @@
 package br.com.finlegacy.api.features.patients.data.table
 
 import br.com.finlegacy.api.features.clinics.data.table.ClinicTable
+import br.com.finlegacy.api.features.clinics.data.table.ClinicTable.nullable
 import br.com.finlegacy.api.features.maritalStatus.data.table.MaritalStatusTable
 import br.com.finlegacy.api.features.occupations.data.table.OccupationTable
 import org.jetbrains.exposed.dao.id.LongIdTable
@@ -15,9 +16,9 @@ object PatientTable : LongIdTable("patients") {
     val birthDate = varchar("birth_date", 50)
 
     val addressCEP = varchar("address_cep", 50)
-    val addressStreet = varchar("address_street", 250)
-    val addressNumber = varchar("address_number", 50)
-    val addressNeighborhood = varchar("address_neighborhood", 250)
+    val addressStreet = varchar("address_street", 250).nullable()
+    val addressNumber = varchar("address_number", 50).nullable()
+    val addressNeighborhood = varchar("address_neighborhood", 250).nullable()
     val addressCity = varchar("address_city", 250)
     val addressState = varchar("address_state", 100)
 

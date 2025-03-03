@@ -9,6 +9,7 @@ class UserProfileEntity(id: EntityID<Long>) : LongEntity(id) {
     companion object : LongEntityClass<UserProfileEntity>(UserProfileTable)
 
     var name by UserProfileTable.name
+    var isAdmin by UserProfileTable.isAdmin
     var isSysAdmin by UserProfileTable.isSysAdmin
 }
 

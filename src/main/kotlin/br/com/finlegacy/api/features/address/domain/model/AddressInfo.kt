@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class AddressInfo(
     val cep: String,
     val street: String?,
+    val number: String?,
     val neighborhood: String?,
     val city: String,
     val state: String

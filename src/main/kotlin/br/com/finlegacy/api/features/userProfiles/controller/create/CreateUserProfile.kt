@@ -22,6 +22,9 @@ fun Route.createUserProfile() {
             call.validateRequestField(value = userProfileCreate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@post
             }
+            call.validateRequestField(value = userProfileCreate.isAdmin.toString(), customFieldMessageError = "isAdmin", type = ValidationType.BOOL).let { isValid ->
+                if (!isValid) return@post
+            }
             call.validateRequestField(value = userProfileCreate.isSysAdmin.toString(), customFieldMessageError = "isSysAdmin", type = ValidationType.BOOL).let { isValid ->
                 if (!isValid) return@post
             }

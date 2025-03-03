@@ -22,6 +22,10 @@ fun Route.createBank() {
             call.validateRequestField(value = bankCreate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@post
             }
+            call.validateRequestField(value = bankCreate.code, customFieldMessageError = "code", type = ValidationType.ID).let { isValid ->
+                if (!isValid) return@post
+            }
+
             service.create(bankCreate, uidLogged).handleResult(call) { data ->
                 call.respond(HttpStatusCode.Created, data)
             }

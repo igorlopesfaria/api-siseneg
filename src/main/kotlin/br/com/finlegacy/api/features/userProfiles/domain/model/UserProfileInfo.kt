@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class UserProfileInfo (
     val id: Long,
     val name: String,
+    val isAdmin: Boolean,
     val isSysAdmin: Boolean
 )

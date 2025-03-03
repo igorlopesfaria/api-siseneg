@@ -19,15 +19,35 @@ fun Route.updateClinic() {
 
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@put
 
-            val bankUpdate = call.receive<ClinicUpdate>()
-            call.validateRequestField(value = bankUpdate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
+            val clinicUpdate = call.receive<ClinicUpdate>()
+            call.validateRequestField(value = clinicUpdate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@put
             }
-            call.validateRequestField(value = bankUpdate.cnpj, type = ValidationType.CNPJ).let { isValid ->
+            call.validateRequestField(value = clinicUpdate.cnpj, type = ValidationType.CNPJ).let { isValid ->
                 if (!isValid) return@put
             }
 
-            service.update(bankUpdate, uidLogged).handleResult(call) {
+            call.validateRequestField(value = clinicUpdate.addressInfo.cep, customFieldMessageError = "address.CEP", type = ValidationType.CEP).let { isValid ->
+                if (!isValid) return@put
+            }
+            call.validateRequestField(value = clinicUpdate.addressInfo.city, customFieldMessageError = "address.city", type = ValidationType.NOT_BLANK).let { isValid ->
+                if (!isValid) return@put
+            }
+            call.validateRequestField(value = clinicUpdate.addressInfo.state, customFieldMessageError = "address.state", type = ValidationType.NOT_BLANK).let { isValid ->
+                if (!isValid) return@put
+            }
+
+            call.validateRequestField(value = clinicUpdate.bankId.toString(), customFieldMessageError = "clinicId", type = ValidationType.ID).let { isValid ->
+                if (!isValid) return@put
+            }
+            call.validateRequestField(value = clinicUpdate.bankBranchCode, customFieldMessageError = "clinicBranchCode", type = ValidationType.NOT_BLANK).let { isValid ->
+                if (!isValid) return@put
+            }
+            call.validateRequestField(value = clinicUpdate.bankAccountNumber, customFieldMessageError = "clinicAccountNumber", type = ValidationType.NOT_BLANK).let { isValid ->
+                if (!isValid) return@put
+            }
+
+            service.update(clinicUpdate, uidLogged).handleResult(call) {
                 call.respond(HttpStatusCode.OK)
             }
         } catch (_: Exception) {

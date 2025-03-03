@@ -1,5 +1,6 @@
 package br.com.finlegacy.api.features.patients.data.mapper
 
+import br.com.finlegacy.api.features.address.domain.model.AddressInfo
 import br.com.finlegacy.api.features.clinics.data.mapper.entityToModel
 import br.com.finlegacy.api.features.maritalStatus.data.mapper.entityToModel
 import br.com.finlegacy.api.features.occupations.data.mapper.entityToModel
@@ -14,12 +15,14 @@ fun PatientEntity.entityToModel() = PatientInfo(
     phoneNumber = this.phoneNumber,
     email = this.email,
     birthDate = this.birthDate,
-    addressCEP = this.addressCEP,
-    addressStreet = this.addressStreet,
-    addressNumber = this.addressNumber,
-    addressNeighborhood = this.addressNeighborhood,
-    addressCity = this.addressCity,
-    addressState = this.addressState,
+    addressInfo = AddressInfo(
+        this.addressCEP,
+        this.addressStreet,
+        this.addressNumber,
+        this.addressNeighborhood,
+        this.addressCity,
+        this.addressState
+    ),
     martialStatus = this.maritalStatus.entityToModel(),
     spouseName = this.spouseName,
     spouseCpf = this.spouseCpf,

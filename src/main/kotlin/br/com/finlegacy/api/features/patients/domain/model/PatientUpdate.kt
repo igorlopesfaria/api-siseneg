@@ -1,5 +1,6 @@
 package br.com.finlegacy.api.features.patients.domain.model
 
+import br.com.finlegacy.api.features.address.domain.model.AddressInfo
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -11,12 +12,7 @@ data class PatientUpdate (
     val phoneNumber: String,
     val email: String,
     val birthDate:String,
-    val addressCEP: String,
-    val addressStreet: String,
-    val addressNumber: String,
-    val addressNeighborhood: String,
-    val addressCity: String,
-    val addressState: String,
+    val addressInfo: AddressInfo,
     val martialStatusId: Long,
     val occupationId: Long,
     val income:Double,

@@ -1,5 +1,120 @@
-CREATE TABLE clinic (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    cnpj VARCHAR(20) NOT NULL
+create table public.banks (
+  id bigint primary key not null default nextval('banks_id_seq'::regclass),
+  name character varying(50) not null
 );
+
+create table public.clinics (
+  id bigint primary key not null default nextval('clinics_id_seq'::regclass),
+  cnpj character varying(50) not null,
+  name character varying(250) not null,
+  address_cep character varying(50) not null,
+  address_street character varying(250),
+  address_number character varying(50),
+  address_neighborhood character varying(250),
+  address_city character varying(250) not null,
+  address_state character varying(100) not null,
+  bank_id bigint not null,
+  bank_branch_code character varying(50) not null,
+  bank_account_number character varying(50) not null,
+  foreign key (bank_id) references public.banks (id)
+  match simple on update restrict on delete cascade
+);
+
+create table public.financial_institutions (
+  id bigint primary key not null default nextval('financial_institutions_id_seq'::regclass),
+  name character varying(50) not null
+);
+
+create table public.marital_status (
+  id bigint primary key not null default nextval('marital_status_id_seq'::regclass),
+  name character varying(50) not null
+);
+
+create table public.ocupations (
+  id bigint primary key not null default nextval('ocupations_id_seq'::regclass),
+  name character varying(50) not null
+);
+
+create table public.patients (
+  id bigint primary key not null default nextval('patients_id_seq'::regclass),
+  full_name character varying(250) not null,
+  cpf character varying(50) not null,
+  rg character varying(50) not null,
+  phone_number character varying(50) not null,
+  email character varying(250) not null,
+  birth_date character varying(50) not null,
+  address_cep character varying(50) not null,
+  address_street character varying(250),
+  address_number character varying(50),
+  address_neighborhood character varying(250),
+  address_city character varying(250) not null,
+  address_state character varying(100) not null,
+  occupation_id bigint not null,
+  income double precision not null,
+  marital_status_id bigint not null,
+  spouse_name character varying(250),
+  spouse_cpf character varying(50),
+  clinic_id bigint not null,
+  foreign key (clinic_id) references public.clinics (id)
+  match simple on update restrict on delete cascade,
+  foreign key (marital_status_id) references public.marital_status (id)
+  match simple on update restrict on delete cascade,
+  foreign key (occupation_id) references public.ocupations (id)
+  match simple on update restrict on delete cascade
+);
+create unique index unique_cpf_per_clinic on patients using btree (clinic_id, cpf);
+create unique index unique_rg_per_clinic on patients using btree (clinic_id, rg);
+create unique index unique_phone_per_clinic on patients using btree (clinic_id, phone_number);
+create unique index unique_email_per_clinic on patients using btree (clinic_id, email);
+
+create table public.procedures (
+  id bigint primary key not null default nextval('procedures_id_seq'::regclass),
+  name character varying(50) not null
+);
+
+create table public.procedures_clinics (
+  id bigint primary key not null default nextval('procedures_clinics_id_seq'::regclass),
+  procedure_id bigint not null,
+  clinic_id bigint not null,
+  foreign key (clinic_id) references public.clinics (id)
+  match simple on update restrict on delete cascade,
+  foreign key (procedure_id) references public.procedures (id)
+  match simple on update restrict on delete cascade
+);
+create unique index procedures_clinics_procedure_id_clinic_id_unique on procedures_clinics using btree (procedure_id, clinic_id);
+
+create table public.simulations (
+  id bigint primary key not null default nextval('simulations_id_seq'::regclass),
+  simulated_amount double precision not null,
+  installments integer not null,
+  user_id bigint not null,
+  patient_id bigint not null,
+  procedure_clinic_id bigint not null,
+  foreign key (patient_id) references public.patients (id)
+  match simple on update restrict on delete cascade,
+  foreign key (procedure_clinic_id) references public.procedures_clinics (id)
+  match simple on update restrict on delete cascade,
+  foreign key (user_id) references public.users (id)
+  match simple on update restrict on delete cascade
+);
+
+create table public.user_profiles (
+  id bigint primary key not null default nextval('user_profiles_id_seq'::regclass),
+  name character varying(255) not null,
+  is_admin boolean not null default false
+);
+
+create table public.users (
+  id bigint primary key not null default nextval('users_id_seq'::regclass),
+  uid character varying(32) not null,
+  user_name character varying(255) not null,
+  password character varying(255) not null,
+  clinic_id bigint not null,
+  user_profile_id bigint not null,
+  foreign key (clinic_id) references public.clinics (id)
+  match simple on update restrict on delete cascade,
+  foreign key (user_profile_id) references public.user_profiles (id)
+  match simple on update restrict on delete cascade
+);
+create unique index users_uid_unique on users using btree (uid);
+

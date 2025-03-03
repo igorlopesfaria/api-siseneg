@@ -1,0 +1,87 @@
+-------------INSERT BANKS----------------
+INSERT INTO public.banks (name, bank_code) VALUES
+('Banco do Brasil S.A.', '001'),
+('Banco da Amazônia S.A.', '003'),
+('Banco do Nordeste do Brasil S.A.', '004'),
+('Caixa Econômica Federal', '104'),
+('Banco Nacional de Desenvolvimento Econômico e Social (BNDES)', '007'),
+('Banco Central do Brasil', '099'),
+('Itaú Unibanco S.A.', '341'),
+('Banco Bradesco S.A.', '237'),
+('Banco Santander (Brasil) S.A.', '033'),
+('Banco Safra S.A.', '422'),
+('Banco BTG Pactual S.A.', '208'),
+('Banco Original S.A.', '212'),
+('Banco Pan S.A.', '623'),
+('Banco Inter S.A.', '077'),
+('Banco C6 S.A.', '336'),
+('Banco Votorantim S.A. (BV)', '655'),
+('Banco Citibank S.A.', '745'),
+('Banco Mercantil do Brasil S.A.', '389'),
+('Banco Modal S.A.', '746'),
+('Banco ABC Brasil S.A.', '246'),
+('Banco Fibra S.A.', '224'),
+('Banco Daycoval S.A.', '707'),
+('Banco Alfa S.A.', '025'),
+('Banco BMG S.A.', '318'),
+('Banco Banrisul S.A.', '041'),
+('Banco Banestes S.A.', '021'),
+('Banco de Brasília S.A. (BRB)', '070'),
+('Banco do Estado de Sergipe S.A. (Banese)', '047'),
+('Banco Cooperativo Sicredi S.A.', '748'),
+('Banco Cooperativo do Brasil S.A. (Bancoob)', '756'),
+('Banco XP S.A.', '102'),
+('Neon Pagamentos S.A.', '735'),
+('PagBank - Banco Seguro S.A.', '290'),
+('Banco BS2 S.A.', '218'),
+('Banco Crefisa S.A.', '069'),
+('Banco Agibank S.A.', '121'),
+('Banco Bari S.A.', '268'),
+('Banco Master S.A.', '241'),
+('Banco Topázio S.A.', '082'),
+('Banco Rendimento S.A.', '633'),
+('Banco Pine S.A.', '643'),
+('Banco Sofisa S.A.', '637'),
+('Banco Western Union do Brasil S.A.', '119'),
+('Banco Semear S.A.', '743'),
+('Banco BR Partners S.A.', '126'),
+('Banco Indusval S.A.', '653'),
+('Banco CNH Industrial Capital S.A.', '383'),
+('Banco Rodobens S.A.', '120'),
+('Banco Toyota do Brasil S.A.', '396');
+-------------END----------------
+
+-------------INSERT CLINICS----------------
+INSERT INTO public.clinics (cnpj, name, address_cep, address_street, address_number, address_neighborhood, address_city, address_state, bank_id, bank_branch_code, bank_account_number)
+VALUES
+('12345678000195', -- Valid CNPJ format
+ 'Clinica Siseneg',
+ '01001-000', -- Random CEP (Postal Code) in São Paulo
+ 'Rua da Consolação', -- Random street name
+ '123', -- Random number
+ 'Bela Vista', -- Random neighborhood
+ 'São Paulo', -- City
+ 'SP', -- State
+ (SELECT id FROM public.banks WHERE bank_code = '341'), -- Refers to Itaú (bank code 341)
+ '123', -- Branch code
+ '321321-4'); -- Account number
+
+ -------------END----------------
+
+ -------------INSERT USER_PROFILES----------------
+INSERT INTO public.user_profiles (name, is_admin, is_sys_admin)
+VALUES
+    ('Receptionist', false, false),
+    ('Administrator', true, false),
+    ('System Administrator',  true, true);
+
+-------------END----------------
+
+ -------------INSERT USERS----------------
+INSERT INTO public.users (uid, user_name, password, clinic_id, user_profile_id)
+VALUES
+    ('ad4a64fa54ec0785e7799b6b9faeb2c6', 'test@siseneg.com.br', 'd8578edf8458ce06fbc5bb2d3b3c6c319', 1, 1);
+
+
+
+

@@ -5,5 +5,6 @@ import br.com.finlegacy.api.features.banks.domain.model.BankInfo
 
 fun BankEntity.entityToModel() = BankInfo(
     this.id.value,
-    this.name
+    this.name,
+    this.code
 )

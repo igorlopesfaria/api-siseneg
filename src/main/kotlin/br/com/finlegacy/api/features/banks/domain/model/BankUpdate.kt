@@ -6,4 +6,5 @@ import kotlinx.serialization.Serializable
 data class BankUpdate (
     val id: Long,
     val name: String,
+    val code: String,
 )

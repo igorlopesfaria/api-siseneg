@@ -43,6 +43,7 @@ class BankRepositoryImpl: BankRepository{
             addLogger(StdOutSqlLogger)
             BankEntity.findByIdAndUpdate(bankUpdate.id) { item ->
                 item.name = bankUpdate.name
+                item.code = bankUpdate.code
             }?.entityToModel()
         }
     }
@@ -51,6 +52,7 @@ class BankRepositoryImpl: BankRepository{
         return suspendTransaction {
             BankEntity.new {
                 name = bankCreate.name
+                code = bankCreate.code
             }.entityToModel()
         }
     }

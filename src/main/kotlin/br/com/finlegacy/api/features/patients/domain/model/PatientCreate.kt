@@ -1,5 +1,6 @@
 package br.com.finlegacy.api.features.patients.domain.model
 
+import br.com.finlegacy.api.features.address.domain.model.AddressInfo
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,15 +11,10 @@ data class PatientCreate (
     val phoneNumber: String,
     val email: String,
     val birthDate:String,
-    val addressCEP: String,
-    val addressStreet: String,
-    val addressNumber: String,
-    val addressNeighborhood: String,
-    val addressCity: String,
-    val addressState: String,
-    val martialStatusId: Long,
+    val addressInfo: AddressInfo,
     val occupationId: Long,
     val income:Double,
+    val martialStatusId: Long,
     val spouseName: String? = null,
     val spouseCpf: String? = null,
 )

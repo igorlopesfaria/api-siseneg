@@ -3,6 +3,7 @@ package br.com.finlegacy.api.features.clinics.domain.service
 import br.com.finlegacy.api.core.exceptions.ForbiddenException
 import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
 import br.com.finlegacy.api.core.result.Result
+import br.com.finlegacy.api.features.banks.domain.repository.BankRepository
 import br.com.finlegacy.api.features.clinics.domain.model.ClinicCreate
 import br.com.finlegacy.api.features.clinics.domain.model.ClinicInfo
 import br.com.finlegacy.api.features.clinics.domain.model.ClinicUpdate
