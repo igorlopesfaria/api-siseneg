@@ -13,9 +13,10 @@ data class PatientUpdate (
     val email: String,
     val birthDate:String,
     val addressInfo: AddressInfo,
-    val martialStatusId: Long,
+    val clinicId: Long,
     val occupationId: Long,
     val income:Double,
+    val maritalStatusId: Long,
     val spouseName: String? = null,
     val spouseCpf: String? = null,
 )

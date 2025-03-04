@@ -16,7 +16,7 @@ data class PatientInfo(
     val email: String,
     val birthDate:String,
     val addressInfo: AddressInfo,
-    val martialStatus: MaritalStatusInfo,
+    val maritalStatus: MaritalStatusInfo,
     val income:Double,
     val spouseName: String? = null,
     val spouseCpf: String? = null,

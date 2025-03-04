@@ -138,7 +138,7 @@ fun String.isValidCEP(): Boolean {
 
 fun String.isValidPrice(): Boolean {
     // Regex to match numbers with exactly two decimal places (e.g., "12.34", "0.99")
-    val priceRegex = Regex("^\\d+\\.\\d{2}\$")
+    val priceRegex = Regex("^\\d+\\.\\d{1,2}\$")  // Allows one or two decimal places
 
     // Check if it matches the regex and is greater than zero
     return this.matches(priceRegex) && this.toDouble() > 0.0

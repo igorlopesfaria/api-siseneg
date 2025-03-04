@@ -21,7 +21,7 @@ fun Route.findProcedureClinic() {
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@get
             val procedureId = call.extractPathParameter<Long>(pathParam = "procedureId", type = ValidationType.ID) ?: return@get
 
-            service.findProceduresByClinicId(procedureId, uidLogged).handleResult(call) { data ->
+            service.findClinicByProcedureId(procedureId, uidLogged).handleResult(call) { data ->
                 call.respond(HttpStatusCode.OK, data)
             }
 

@@ -4,7 +4,9 @@ import br.com.finlegacy.api.core.exceptions.ForbiddenException
 import br.com.finlegacy.api.core.exceptions.GenericServerException
 import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
 import br.com.finlegacy.api.core.result.Result
+import br.com.finlegacy.api.features.clinics.domain.model.ClinicInfo
 import br.com.finlegacy.api.features.clinics.domain.repository.ClinicRepository
+import br.com.finlegacy.api.features.procedures.domain.model.ProcedureInfo
 import br.com.finlegacy.api.features.procedures.domain.repository.ProcedureRepository
 import br.com.finlegacy.api.features.proceduresClinics.domain.model.ProcedureClinicInfo
 import br.com.finlegacy.api.features.proceduresClinics.domain.repository.ProcedureClinicRepository
@@ -50,7 +52,7 @@ class ProcedureClinicServiceImpl(
         )
     }
 
-    override suspend fun findProceduresByClinicId(clinicId: Long, uidLogged:String): Result<List<ProcedureClinicInfo>> {
+    override suspend fun findProceduresByClinicId(clinicId: Long, uidLogged:String): Result<List<ProcedureInfo>> {
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
 
@@ -63,10 +65,11 @@ class ProcedureClinicServiceImpl(
         )
     }
 
-    override suspend fun findClinicByProcedureId(procedureId: Long, uidLogged:String): Result<List<ProcedureClinicInfo>> {
+    override suspend fun findClinicByProcedureId(procedureId: Long, uidLogged:String): Result<List<ClinicInfo>> {
         return runCatching {
-            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
-                throw ForbiddenException()
+            val userLogged = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
+            if (!userLogged.userProfile.isSysAdmin) throw ForbiddenException()
+
             procedureClinicRepository.findClinicByProcedureId(procedureId)
         }.fold(
             onSuccess = { Result.Success(it) },

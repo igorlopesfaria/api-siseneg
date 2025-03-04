@@ -2,6 +2,7 @@ package br.com.finlegacy.api
 
 import br.com.finlegacy.api.features.address.controller.addressRoutes
 import br.com.finlegacy.api.features.authentication.controller.authenticationRoutes
+import br.com.finlegacy.api.features.banks.controller.bankRoutes
 import br.com.finlegacy.api.features.clinics.controller.clinicRoutes
 import br.com.finlegacy.api.features.financialInstitutions.controller.financialInstitutionsRoutes
 import br.com.finlegacy.api.features.maritalStatus.controller.maritalStatusRoutes
@@ -27,4 +28,5 @@ fun Application.routes() {
     patientRoutes()
     occupationRoutes()
     simulationRoutes()
+    bankRoutes()
 }

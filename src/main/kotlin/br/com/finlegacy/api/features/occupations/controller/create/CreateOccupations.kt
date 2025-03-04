@@ -22,11 +22,11 @@ fun Route.createOccupation() {
         try {
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@post
 
-            val maritalStatusCreate = call.receive<OccupationCreate>()
-            call.validateRequestField(value = maritalStatusCreate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
+            val occupationCreate = call.receive<OccupationCreate>()
+            call.validateRequestField(value = occupationCreate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@post
             }
-            service.create(maritalStatusCreate, uidLogged).handleResult(call) { data ->
+            service.create(occupationCreate, uidLogged).handleResult(call) { data ->
                 call.respond(HttpStatusCode.Created, data)
             }
 

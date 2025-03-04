@@ -23,7 +23,7 @@ fun PatientEntity.entityToModel() = PatientInfo(
         this.addressCity,
         this.addressState
     ),
-    martialStatus = this.maritalStatus.entityToModel(),
+    maritalStatus = this.maritalStatus.entityToModel(),
     spouseName = this.spouseName,
     spouseCpf = this.spouseCpf,
     occupation = this.occupation.entityToModel(),

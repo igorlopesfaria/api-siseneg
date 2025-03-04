@@ -18,18 +18,18 @@ import org.koin.java.KoinJavaComponent.inject
 fun Route.updateOccupation() {
     val service: OccupationService by inject(OccupationService::class.java)
 
-    put ("/v1/maritalStatus"){
+    put ("/v1/occupations"){
         try {
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@put
 
-            val maritalStatusUpdate = call.receive<OccupationUpdate>()
-            call.validateRequestField(value = maritalStatusUpdate.id.toString(), type = ValidationType.ID).let { isValid ->
+            val occupationUpdate = call.receive<OccupationUpdate>()
+            call.validateRequestField(value = occupationUpdate.id.toString(), type = ValidationType.ID).let { isValid ->
                 if (!isValid) return@put
             }
-            call.validateRequestField(value = maritalStatusUpdate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
+            call.validateRequestField(value = occupationUpdate.name, customFieldMessageError = "name", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@put
             }
-            service.update(maritalStatusUpdate, uidLogged).handleResult(call) { data ->
+            service.update(occupationUpdate, uidLogged).handleResult(call) { data ->
                 call.respond(HttpStatusCode.OK, data)
             }
         } catch (_: Exception) {

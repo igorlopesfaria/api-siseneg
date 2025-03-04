@@ -12,9 +12,10 @@ data class PatientCreate (
     val email: String,
     val birthDate:String,
     val addressInfo: AddressInfo,
+    val clinicId: Long,
     val occupationId: Long,
     val income:Double,
-    val martialStatusId: Long,
+    val maritalStatusId: Long,
     val spouseName: String? = null,
     val spouseCpf: String? = null,
 )

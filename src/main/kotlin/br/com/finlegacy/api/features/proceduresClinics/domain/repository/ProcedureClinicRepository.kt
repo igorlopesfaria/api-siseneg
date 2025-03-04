@@ -7,6 +7,6 @@ import br.com.finlegacy.api.features.proceduresClinics.domain.model.ProcedureCli
 interface ProcedureClinicRepository {
     suspend fun unlinkProcedureClinic(procedureId: Long, clinicId: Long): Boolean
     suspend fun linkProcedureClinic(procedure: ProcedureInfo, clinic: ClinicInfo): ProcedureClinicInfo
-    suspend fun findProceduresByClinicId(clinicId: Long): List<ProcedureClinicInfo>
-    suspend fun findClinicByProcedureId(procedureId: Long): List<ProcedureClinicInfo>
+    suspend fun findProceduresByClinicId(clinicId: Long): List<ProcedureInfo>
+    suspend fun findClinicByProcedureId(procedureId: Long): List<ClinicInfo>
 }

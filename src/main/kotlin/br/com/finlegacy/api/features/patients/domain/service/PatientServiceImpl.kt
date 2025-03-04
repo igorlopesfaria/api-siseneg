@@ -66,7 +66,7 @@ class PatientServiceImpl(
             val clinicId = userRepository.findByUid(uidLogged)?.clinic?.id
                 ?: throw ItemNotFoundException("User clinic")
 
-            maritalStatusRepository.findById(patientUpdate.martialStatusId)?.id
+            maritalStatusRepository.findById(patientUpdate.maritalStatusId)?.id
                 ?: throw ItemNotFoundException("Patient marital status")
 
             suspend fun isDuplicateOnUpdate(id: Long, filter: PatientFilter, errorMessage: String): Result.Failure? {
@@ -94,7 +94,7 @@ class PatientServiceImpl(
             val clinicId = userRepository.findByUid(uidLogged)?.clinic?.id
                 ?: throw ItemNotFoundException("User clinic")
 
-            maritalStatusRepository.findById(patientCreate.martialStatusId)?.id
+            maritalStatusRepository.findById(patientCreate.maritalStatusId)?.id
                 ?: throw ItemNotFoundException("Patient marital status")
 
             suspend fun isDuplicateOnCreate(filter: PatientFilter, errorMessage: String): Result.Failure? {

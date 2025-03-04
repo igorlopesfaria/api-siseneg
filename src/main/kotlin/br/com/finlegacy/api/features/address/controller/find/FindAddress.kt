@@ -25,8 +25,8 @@ fun Route.findAddress() {
                 if (!isValid) return@get
             }
 
-            service.findAddressByCEP(cep).handleResult(call) {
-                call.respond(HttpStatusCode.OK)
+            service.findAddressByCEP(cep).handleResult(call) { data ->
+                call.respond(HttpStatusCode.OK, data)
             }
 
         } catch (_: Exception) {

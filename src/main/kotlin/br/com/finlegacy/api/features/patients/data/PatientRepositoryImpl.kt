@@ -85,7 +85,7 @@ class PatientRepositoryImpl: PatientRepository {
             val clinicEntity = ClinicEntity.findById(clinicId)
                 ?: throw ItemNotFoundException("Clinic")
 
-            val maritalStatusEntity = MaritalStatusEntity.findById(patientUpdate.martialStatusId)
+            val maritalStatusEntity = MaritalStatusEntity.findById(patientUpdate.maritalStatusId)
                 ?: throw ItemNotFoundException("Marital status")
 
             val occupationEntity = OccupationEntity.findById(patientUpdate.occupationId)
@@ -110,6 +110,7 @@ class PatientRepositoryImpl: PatientRepository {
                 item.spouseName = patientUpdate.spouseName
                 item.spouseCpf = patientUpdate.spouseCpf
                 item.occupation = occupationEntity
+                item.income = patientUpdate.income
             }?.entityToModel()
         }
     }
@@ -119,7 +120,7 @@ class PatientRepositoryImpl: PatientRepository {
             val clinicEntity = ClinicEntity.findById(clinicId)
                 ?: throw ItemNotFoundException("Clinic")
 
-            val maritalStatusEntity = MaritalStatusEntity.findById(patientCreate.martialStatusId)
+            val maritalStatusEntity = MaritalStatusEntity.findById(patientCreate.maritalStatusId)
                 ?: throw ItemNotFoundException("Marital status")
 
             val occupationEntity = OccupationEntity.findById(patientCreate.occupationId)
@@ -143,6 +144,7 @@ class PatientRepositoryImpl: PatientRepository {
                 this.spouseName = patientCreate.spouseName
                 this.spouseCpf = patientCreate.spouseCpf
                 this.occupation = occupationEntity
+                this.income = patientCreate.income
             }.entityToModel()
 
         }

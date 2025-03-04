@@ -36,17 +36,18 @@ class ProcedureClinicRepositoryImpl : ProcedureClinicRepository {
         }
     }
 
-    override suspend fun findProceduresByClinicId(clinicId: Long): List<ProcedureClinicInfo> {
+    override suspend fun findProceduresByClinicId(clinicId: Long): List<ProcedureInfo> {
         return suspendTransaction {
             ProcedureClinicEntity.find { ProcedureClinicTable.clinicId eq clinicId }
-                .map { it.entityToModel() }
+                .map { it.entityToModel().procedure }
         }
     }
 
-    override suspend fun findClinicByProcedureId(procedureId: Long): List<ProcedureClinicInfo> {
+    override suspend fun findClinicByProcedureId(procedureId: Long): List<ClinicInfo> {
         return suspendTransaction {
-            ProcedureClinicEntity.find { ProcedureClinicTable.procedureId eq procedureId }
-                .map { it.entityToModel() }
+            ProcedureClinicEntity.find {
+                ProcedureClinicTable.procedureId eq procedureId
+            }.map { it.entityToModel().clinic }
         }
     }
 }

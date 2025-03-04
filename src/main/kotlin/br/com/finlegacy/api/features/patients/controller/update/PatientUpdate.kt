@@ -41,16 +41,16 @@ fun Route.updatePatient() {
             call.validateRequestField(value = patientUpdate.birthDate, type = ValidationType.BIRTH_DATE).let { isValid ->
                 if (!isValid) return@put
             }
-            call.validateRequestField(value = patientUpdate.martialStatusId.toString(), customFieldMessageError = "Martial status id", type = ValidationType.ID).let { isValid ->
+            call.validateRequestField(value = patientUpdate.maritalStatusId.toString(), customFieldMessageError = "Martial status id", type = ValidationType.ID).let { isValid ->
                 if (!isValid) return@put
             }
 
             when {
-                patientUpdate.martialStatusId == 1L && (patientUpdate.spouseName.isNullOrBlank() || patientUpdate.spouseCpf.isNullOrBlank()) -> {
+                patientUpdate.maritalStatusId == 1L && (patientUpdate.spouseName.isNullOrBlank() || patientUpdate.spouseCpf.isNullOrBlank()) -> {
                     call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Patient spouse name and CPF must not be empty"))
                     return@put
                 }
-                patientUpdate.martialStatusId == 1L && patientUpdate.spouseCpf?.isValidCPF() == false -> {
+                patientUpdate.maritalStatusId == 1L && patientUpdate.spouseCpf?.isValidCPF() == false -> {
                     call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Patient spouse CPF must be valid"))
                     return@put
                 }

@@ -37,17 +37,26 @@ fun Route.createPatient() {
             call.validateRequestField(value = patientCreate.birthDate, type = ValidationType.BIRTH_DATE).let { isValid ->
                 if (!isValid) return@post
             }
-            call.validateRequestField(value = patientCreate.martialStatusId.toString(), customFieldMessageError = "Martial status id", type = ValidationType.ID).let { isValid ->
+            call.validateRequestField(value = patientCreate.clinicId.toString(), customFieldMessageError = "Clinic", type = ValidationType.ID).let { isValid ->
+                if (!isValid) return@post
+            }
+            call.validateRequestField(value = patientCreate.maritalStatusId.toString(), customFieldMessageError = "Marital status", type = ValidationType.ID).let { isValid ->
+                if (!isValid) return@post
+            }
+            call.validateRequestField(value = patientCreate.occupationId.toString(), customFieldMessageError = "Occupation id", type = ValidationType.ID).let { isValid ->
+                if (!isValid) return@post
+            }
+            call.validateRequestField(value = patientCreate.income.toString(), customFieldMessageError = "Income", type = ValidationType.PRICE).let { isValid ->
                 if (!isValid) return@post
             }
 
             when {
-                patientCreate.martialStatusId == 1L && (patientCreate.spouseName.isNullOrBlank() || patientCreate.spouseCpf.isNullOrBlank()) -> {
-                    call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Patient spouse name and CPF must not be empty"))
+                patientCreate.maritalStatusId == 1L && (patientCreate.spouseName.isNullOrBlank() || patientCreate.spouseCpf.isNullOrBlank()) -> {
+                    call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Patient spouse name and CPF must not be empty for this martial status"))
                     return@post
                 }
 
-                patientCreate.martialStatusId == 1L && patientCreate.spouseCpf?.isValidCPF() == false -> {
+                patientCreate.maritalStatusId == 1L && patientCreate.spouseCpf?.isValidCPF() == false -> {
                     call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Patient spouse CPF must be valid"))
                     return@post
                 }

@@ -14,7 +14,7 @@ import org.koin.java.KoinJavaComponent.inject
 fun Route.findOccupation() {
     val service: OccupationService by inject(OccupationService::class.java)
 
-    get("/v1/maritalStatus/{id}") {
+    get("/v1/occupations/{id}") {
         try {
             val id = call.extractPathParameter<Long>(pathParam = "id", type = ValidationType.ID) ?: return@get
 
@@ -26,7 +26,7 @@ fun Route.findOccupation() {
         }
     }
 
-    get("/v1/maritalStatus") {
+    get("/v1/occupations") {
         try {
             service.findAll().handleResult(call) { data ->
                 call.respond(HttpStatusCode.OK, data)
