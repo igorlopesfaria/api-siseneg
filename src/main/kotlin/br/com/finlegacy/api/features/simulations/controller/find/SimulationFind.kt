@@ -29,11 +29,16 @@ fun Route.findSimulation() {
                 param = "procedureId",
                 parameterType = ParameterType.QUERY
             )
+            val clinicId = call.extractParameter<Long?>(
+                param = "clinicId",
+                parameterType = ParameterType.QUERY
+            )
 
             val simulationFilter = SimulationFilter(
                 patientCpf = patientCpf,
                 patientName = patientName,
-                procedureId = procedureId
+                procedureId = procedureId,
+                clinicId = clinicId
             )
 
             service.findByFilter(simulationFilter, uidLogged).handleResult(call) { data ->

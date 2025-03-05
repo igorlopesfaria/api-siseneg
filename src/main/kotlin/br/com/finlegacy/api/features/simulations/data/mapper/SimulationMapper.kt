@@ -12,8 +12,8 @@ fun SimulationEntity.entityToModel() = SimulationInfo(
     simulatedAmount = this.simulatedAmount,
     installments = this.installments,
     userInfo = this.user.entityToModel(),
-    procedureInfo = this.procedure.entityToModel(),
+    procedureInfo = this.procedureClinic.procedure.entityToModel(),
     patient = this.patient.entityToModel(),
-    clinicInfo = this.clinic.entityToModel(),
+    clinicInfo = this.procedureClinic.clinic.entityToModel(),
     createdAt = this.createdAt.toString()
 )

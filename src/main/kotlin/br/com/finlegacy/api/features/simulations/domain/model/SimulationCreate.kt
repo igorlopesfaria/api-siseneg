@@ -7,5 +7,5 @@ data class SimulationCreate (
     val installments: Int,
     val procedureId: Long,
     val patientId: Long,
-    val clinicId: Long
+    var clinicId: Long
 )

@@ -34,9 +34,7 @@ class SimulationRepositoryImpl: SimulationRepository {
 
             val conditions = mutableListOf<Op<Boolean>>()
 
-            simulationFilter.clinicId?.let { clinicId->
-                conditions.add(SimulationTable.clinicId eq clinicId)
-            }
+            // Add conditions based on the filters provided
             simulationFilter.patientCpf?.let { cpf ->
                 conditions.add(PatientTable.cpf like "%${cpf}%")
             }
@@ -44,24 +42,38 @@ class SimulationRepositoryImpl: SimulationRepository {
                 conditions.add(PatientTable.fullName like "%${name}%")
             }
             simulationFilter.procedureId?.let { procedureId ->
-                conditions.add(SimulationTable.procedureId eq procedureId)
+                conditions.add(ProcedureClinicTable.procedureId eq procedureId)
+            }
+            simulationFilter.clinicId?.let { clinicId ->
+                conditions.add(ProcedureClinicTable.clinicId eq clinicId)
             }
 
+            // If there are conditions, combine them using `reduce`. Otherwise, use Op.TRUE as a default.
             val query = SimulationTable
                 .join(PatientTable, JoinType.INNER, additionalConstraint = {
                     SimulationTable.patientId eq PatientTable.id
                 })
+                .join(ProcedureClinicTable, JoinType.INNER, additionalConstraint = {
+                    SimulationTable.procedureClinicId eq ProcedureClinicTable.id
+                })
                 .select {
-                    conditions.reduce { acc, op -> acc and op }
+                    // If there are conditions, apply them using `reduce`. If there are no conditions, return `Op.TRUE`.
+                    if (conditions.isNotEmpty()) {
+                        conditions.reduce { acc, op -> acc and op }
+                    } else {
+                        Op.TRUE
+                    }
                 }
 
+            // Map the query result to SimulationInfo model
             query.map {
-                val simulationEntity = SimulationEntity.wrapRow(it) // Use wrapRow to create the entity from the row
-                simulationEntity.entityToModel() // Convert to SimulationInfo model
+                val simulationEntity = SimulationEntity.wrapRow(it) // Wrap row into an entity
+                simulationEntity.entityToModel() // Convert entity to model
             }
-
         }
     }
+
+
 
     override suspend fun findById(id: Long): SimulationInfo? {
         return suspendTransaction {
@@ -88,17 +100,16 @@ class SimulationRepositoryImpl: SimulationRepository {
                 ?: throw ItemNotFoundException("User logged")
             val patientEntity = PatientEntity.findById(simulationCreate.patientId)
                 ?: throw ItemNotFoundException("Patient")
-            val procedureEntity = ProcedureEntity.findById(simulationCreate.procedureId)
-                ?: throw ItemNotFoundException("Procedure")
-            val clinicEntity = ClinicEntity.findById(simulationCreate.clinicId)
-                ?: throw ItemNotFoundException("Clinic")
+            val procedureClinicEntity = ProcedureClinicEntity.find {
+                (ProcedureClinicTable.clinicId eq simulationCreate.clinicId) and
+                        (ProcedureClinicTable.procedureId eq simulationCreate.procedureId)
+            }.singleOrNull() ?:  throw ItemNotFoundException("Procedure is not related to Clinic and this relation ")
 
             SimulationEntity.new {
                 simulatedAmount = simulationCreate.simulatedAmount
                 installments = simulationCreate.installments
                 user = userLogged
-                procedure = procedureEntity
-                clinic = clinicEntity
+                procedureClinic = procedureClinicEntity
                 patient = patientEntity
             }.entityToModel()
         }

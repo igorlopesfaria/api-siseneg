@@ -81,10 +81,9 @@ class SimulationServiceImpl(
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("User Logged")
 
-            if (!userLogged.userProfile.isSysAdmin && userLogged.clinic.id != simulationCreate.clinicId) {
-                throw ForbiddenException()
+            if (!userLogged.userProfile.isSysAdmin) {
+                simulationCreate.clinicId = userLogged.clinic.id
             }
-
             simulationRepository.create(simulationCreate, uidLogged)
         }.fold(
             onSuccess = { Result.Success(it) },
