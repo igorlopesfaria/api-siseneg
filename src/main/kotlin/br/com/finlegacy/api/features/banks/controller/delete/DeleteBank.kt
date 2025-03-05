@@ -15,7 +15,7 @@ fun Route.deleteBank() {
     delete("/v1/banks/{id}") {
         try {
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@delete
-            val id = call.extractPathParameter<Long>(pathParam = "id", type = ValidationType.ID) ?: return@delete
+            val id = call.extractParameter<Long>("id")?: return@delete
 
             service.delete(id, uidLogged).handleResult(call) {
                 call.respond(HttpStatusCode.OK)

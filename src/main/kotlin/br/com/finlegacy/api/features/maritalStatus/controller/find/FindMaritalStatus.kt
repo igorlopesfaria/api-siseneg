@@ -1,7 +1,6 @@
 package br.com.finlegacy.api.features.maritalStatus.controller.find
 
-import br.com.finlegacy.api.core.extensions.ValidationType
-import br.com.finlegacy.api.core.extensions.extractPathParameter
+import br.com.finlegacy.api.core.extensions.extractParameter
 import br.com.finlegacy.api.core.extensions.respondUnexpectedError
 import br.com.finlegacy.api.core.result.handleResult
 import br.com.finlegacy.api.features.maritalStatus.domain.service.MaritalStatusService
@@ -16,7 +15,7 @@ fun Route.findMaritalStatus() {
 
     get("/v1/maritalStatus/{id}") {
         try {
-            val id = call.extractPathParameter<Long>(pathParam = "id", type = ValidationType.ID) ?: return@get
+            val id = call.extractParameter<Long>("id")?: return@get
 
             service.findById(id).handleResult(call) { data ->
                 call.respond(HttpStatusCode.OK, data)

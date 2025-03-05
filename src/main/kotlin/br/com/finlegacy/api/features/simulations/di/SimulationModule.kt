@@ -9,6 +9,6 @@ import org.koin.dsl.module
 
 val simulationModule = module {
     single { SimulationRepositoryImpl() } bind  SimulationRepository::class
-    single { SimulationServiceImpl(get(), get(), get()) } bind SimulationService::class
+    single { SimulationServiceImpl(get(), get()) } bind SimulationService::class
 
 }

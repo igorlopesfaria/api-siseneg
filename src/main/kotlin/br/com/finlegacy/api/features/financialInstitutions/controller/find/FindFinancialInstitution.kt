@@ -1,11 +1,6 @@
 package br.com.finlegacy.api.features.financialInstitutions.controller.find
 
-import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
-import br.com.finlegacy.api.core.extensions.ValidationType
-import br.com.finlegacy.api.core.extensions.extractPathParameter
-import br.com.finlegacy.api.core.extensions.extractUidOrRespondUnauthorized
-import br.com.finlegacy.api.core.extensions.respondUnexpectedError
-import br.com.finlegacy.api.core.result.Result
+import br.com.finlegacy.api.core.extensions.*
 import br.com.finlegacy.api.core.result.handleResult
 import br.com.finlegacy.api.features.financialInstitutions.domain.service.FinancialInstitutionService
 import io.ktor.http.*
@@ -19,7 +14,7 @@ fun Route.findFinancialInstitution() {
 
     get("/v1/financialInstitutions/{id}") {
         try {
-            val id = call.extractPathParameter<Long>(pathParam = "id", type = ValidationType.ID) ?: return@get
+            val id = call.extractParameter<Long>("id")?: return@get
 
             service.findById(id).handleResult(call) { data ->
                 call.respond(HttpStatusCode.OK, data)

@@ -1,9 +1,6 @@
 package br.com.finlegacy.api.features.users.controller.recover
 
-import br.com.finlegacy.api.core.extensions.ValidationType
-import br.com.finlegacy.api.core.extensions.extractPathParameter
-import br.com.finlegacy.api.core.extensions.extractUidOrRespondUnauthorized
-import br.com.finlegacy.api.core.extensions.respondUnexpectedError
+import br.com.finlegacy.api.core.extensions.*
 import br.com.finlegacy.api.core.result.handleResult
 import br.com.finlegacy.api.features.users.domain.service.UserService
 import io.ktor.http.*
@@ -17,8 +14,13 @@ fun Route.recoverPassword() {
 
     get("/v1/users/recoverPassword/{userName}") {
         try {
-            val email = call.extractPathParameter<String>(pathParam = "userName", type = ValidationType.EMAIL) ?: return@get
-            service.sendRecoveryPassword(email).handleResult(call) { data ->
+            val username = call.extractParameter<String>(
+                param = "username",
+                customErrorMessage = "Invalid Email format",
+                validationType = ValidationType.EMAIL
+            )?: return@get
+
+            service.sendRecoveryPassword(username).handleResult(call) { data ->
                 call.respond(HttpStatusCode.OK, data)
             }
         } catch (_: Exception) {

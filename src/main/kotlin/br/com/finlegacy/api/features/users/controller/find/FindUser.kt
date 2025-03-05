@@ -1,7 +1,6 @@
 package br.com.finlegacy.api.features.users.controller.find
 
-import br.com.finlegacy.api.core.extensions.ValidationType
-import br.com.finlegacy.api.core.extensions.extractPathParameter
+import br.com.finlegacy.api.core.extensions.extractParameter
 import br.com.finlegacy.api.core.extensions.extractUidOrRespondUnauthorized
 import br.com.finlegacy.api.core.extensions.respondUnexpectedError
 import br.com.finlegacy.api.core.result.handleResult
@@ -29,7 +28,7 @@ fun Route.findUser() {
     get("/v1/users/{uid}") {
         try {
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@get
-            val uid = call.extractPathParameter<String>(pathParam = "uid", type = ValidationType.NOT_BLANK) ?: return@get
+            val uid = call.extractParameter<String>("uid")?: return@get
 
             service.findByUid(uid, uidLogged).handleResult(call) { data ->
                 call.respond(HttpStatusCode.OK, data)

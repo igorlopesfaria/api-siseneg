@@ -1,7 +1,6 @@
 package br.com.finlegacy.api.features.patients.controller.delete
 
-import br.com.finlegacy.api.core.extensions.ValidationType
-import br.com.finlegacy.api.core.extensions.extractPathParameter
+import br.com.finlegacy.api.core.extensions.extractParameter
 import br.com.finlegacy.api.core.extensions.extractUidOrRespondUnauthorized
 import br.com.finlegacy.api.core.extensions.respondUnexpectedError
 import br.com.finlegacy.api.core.result.handleResult
@@ -18,8 +17,8 @@ fun Route.deletePatient() {
     delete("/v1/patients/{id}") {
         try {
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@delete
+            val id = call.extractParameter<Long>("id")?: return@delete
 
-            val id = call.extractPathParameter<Long>(pathParam = "id", type = ValidationType.ID) ?: return@delete
             service.delete(id, uidLogged).handleResult(call) { _ ->
                 call.respond(HttpStatusCode.OK)
             }

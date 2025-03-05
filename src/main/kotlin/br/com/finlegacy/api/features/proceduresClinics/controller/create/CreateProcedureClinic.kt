@@ -1,9 +1,6 @@
 package br.com.finlegacy.api.features.proceduresClinics.controller.create
 
-import br.com.finlegacy.api.core.extensions.ValidationType
-import br.com.finlegacy.api.core.extensions.extractPathParameter
-import br.com.finlegacy.api.core.extensions.extractUidOrRespondUnauthorized
-import br.com.finlegacy.api.core.extensions.respondUnexpectedError
+import br.com.finlegacy.api.core.extensions.*
 import br.com.finlegacy.api.core.result.handleResult
 import br.com.finlegacy.api.features.proceduresClinics.domain.service.ProcedureClinicService
 import io.ktor.http.*
@@ -19,8 +16,8 @@ fun Route.createProcedureClinic() {
         try {
 
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@post
-            val procedureId = call.extractPathParameter<Long>(pathParam = "procedureId", type = ValidationType.ID) ?: return@post
-            val clinicId = call.extractPathParameter<Long>(pathParam = "clinicId", type = ValidationType.ID) ?: return@post
+            val procedureId = call.extractParameter<Long>("procedureId")?: return@post
+            val clinicId = call.extractParameter<Long>("clinicId")?: return@post
 
             service.linkProcedureClinic(procedureId = procedureId, clinicId = clinicId, uidLogged = uidLogged).handleResult(call) { data ->
                 call.respond(HttpStatusCode.Created, data)

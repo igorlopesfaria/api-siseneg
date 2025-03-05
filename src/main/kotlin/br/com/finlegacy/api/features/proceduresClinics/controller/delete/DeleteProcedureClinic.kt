@@ -1,9 +1,6 @@
 package br.com.finlegacy.api.features.proceduresClinics.controller.delete
 
-import br.com.finlegacy.api.core.extensions.ValidationType
-import br.com.finlegacy.api.core.extensions.extractPathParameter
-import br.com.finlegacy.api.core.extensions.extractUidOrRespondUnauthorized
-import br.com.finlegacy.api.core.extensions.respondUnexpectedError
+import br.com.finlegacy.api.core.extensions.*
 import br.com.finlegacy.api.core.result.handleResult
 import br.com.finlegacy.api.features.proceduresClinics.domain.service.ProcedureClinicService
 import io.ktor.server.routing.*
@@ -19,8 +16,8 @@ fun Route.deleteProcedureClinic() {
         try {
 
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@delete
-            val procedureId = call.extractPathParameter<Long>(pathParam = "procedureId", type = ValidationType.ID) ?: return@delete
-            val clinicId = call.extractPathParameter<Long>(pathParam = "clinicId", type = ValidationType.ID) ?: return@delete
+            val procedureId = call.extractParameter<Long>("procedureId")?: return@delete
+            val clinicId = call.extractParameter<Long>("clinicId")?: return@delete
 
             service.unlinkProcedureClinic(procedureId = procedureId, clinicId = clinicId, uidLogged = uidLogged).handleResult(call) {
                 call.respond(HttpStatusCode.OK)

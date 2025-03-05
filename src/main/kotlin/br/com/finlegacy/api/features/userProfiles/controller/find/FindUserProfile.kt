@@ -17,7 +17,7 @@ fun Route.findUserProfile() {
         get("/v1/userProfiles/{id}") {
             try {
                 val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@get
-                val id = call.extractPathParameter<Long>(pathParam = "id", type = ValidationType.ID) ?: return@get
+                val id = call.extractParameter<Long>("id")?: return@get
 
                 service.findById(id, uidLogged).handleResult(call) { data ->
                     call.respond(HttpStatusCode.Created, data)

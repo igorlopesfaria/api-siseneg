@@ -13,6 +13,7 @@ data class PatientCreate (
     val birthDate:String,
     val addressInfo: AddressInfo,
     val clinicId: Long,
+    val userId: Long,
     val occupationId: Long,
     val income:Double,
     val maritalStatusId: Long,
