@@ -1,7 +1,7 @@
 package br.com.finlegacy.api.features.clinics.data.mapper
 
 import br.com.finlegacy.api.features.address.domain.model.Address
-import br.com.finlegacy.api.features.banks.data.mapper.entityToModel
+import br.com.finlegacy.api.features.banks.data.entity.mapper.entityToModel
 import br.com.finlegacy.api.features.clinics.data.entity.ClinicEntity
 import br.com.finlegacy.api.features.clinics.domain.model.ClinicInfo
 
@@ -18,7 +18,7 @@ fun ClinicEntity.entityToModel() = ClinicInfo(
         state = this.addressState
 
     ),
-    bankInfo = this.bank.entityToModel(),
+    bank = this.bank.entityToModel(),
     bankBranchCode = this.bankBranchCode,
     bankAccountNumber = this.bankAccountNumber
 )

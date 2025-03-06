@@ -1,6 +1,6 @@
-package br.com.finlegacy.api.features.address.getway.correios.mapper
+package br.com.finlegacy.api.features.address.geteway.correios.dto.mapper
 
-import br.com.finlegacy.api.features.address.getway.correios.dto.CorreiosApiResponse
+import br.com.finlegacy.api.features.address.geteway.correios.dto.CorreiosApiResponse
 import br.com.finlegacy.api.features.address.domain.model.Address
 
 fun CorreiosApiResponse.responseToModel() = Address(

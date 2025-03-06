@@ -3,7 +3,7 @@ package br.com.finlegacy.api.features.simulations.data
 import br.com.finlegacy.api.core.exceptions.ItemNotFoundException
 import br.com.finlegacy.api.core.transaction.suspendTransaction
 import br.com.finlegacy.api.features.banks.data.entity.BankEntity
-import br.com.finlegacy.api.features.banks.data.mapper.entityToModel
+import br.com.finlegacy.api.features.banks.data.entity.mapper.entityToModel
 import br.com.finlegacy.api.features.clinics.data.entity.ClinicEntity
 import br.com.finlegacy.api.features.clinics.data.table.ClinicTable
 import br.com.finlegacy.api.features.patients.data.entity.PatientEntity

@@ -7,7 +7,7 @@ import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileInfo
 import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileCreate
 import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileUpdate
 import br.com.finlegacy.api.features.userProfiles.domain.repository.UserProfileRepository
-import br.com.finlegacy.api.features.users.domain.model.UserInfo
+import br.com.finlegacy.api.features.users.domain.model.User
 import br.com.finlegacy.api.features.users.domain.repository.UserRepository
 
 class UserProfileServiceImpl(
@@ -34,7 +34,7 @@ class UserProfileServiceImpl(
 
     override suspend fun delete(id: Long, uidLogged: String): Result<Boolean> {
         return runCatching {
-            val userLogged:UserInfo = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
+            val userLogged:User = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
             if (!userLogged.userProfile.isSysAdmin) throw ForbiddenException()
 
             if (userProfileRepository.delete(id)) {
@@ -50,7 +50,7 @@ class UserProfileServiceImpl(
 
     override suspend fun update(clinicUpdate: UserProfileUpdate, uidLogged: String): Result<UserProfileInfo> {
         return runCatching {
-            val userLogged:UserInfo = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
+            val userLogged:User = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
             if (!userLogged.userProfile.isSysAdmin) throw ForbiddenException()
 
             userProfileRepository.update(clinicUpdate) ?: throw ItemNotFoundException("User Profile")
@@ -62,7 +62,7 @@ class UserProfileServiceImpl(
 
     override suspend fun create(clinicCreate: UserProfileCreate, uidLogged: String): Result<UserProfileInfo> {
         return runCatching {
-            val userLogged:UserInfo = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
+            val userLogged:User = userRepository.findByUid(uidLogged) ?: throw ForbiddenException()
             if (!userLogged.userProfile.isSysAdmin) throw ForbiddenException()
 
             userProfileRepository.create(clinicCreate)

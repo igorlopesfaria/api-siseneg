@@ -1,9 +1,9 @@
 package br.com.finlegacy.api.features.banks.controller
 
-import br.com.finlegacy.api.features.banks.controller.create.createBank
-import br.com.finlegacy.api.features.banks.controller.delete.deleteBank
-import br.com.finlegacy.api.features.banks.controller.find.findBank
-import br.com.finlegacy.api.features.banks.controller.update.updateBank
+import br.com.finlegacy.api.features.banks.controller.routes.createBank
+import br.com.finlegacy.api.features.banks.controller.routes.deleteBank
+import br.com.finlegacy.api.features.banks.controller.routes.findBank
+import br.com.finlegacy.api.features.banks.controller.routes.updateBank
 
 import io.ktor.server.application.*
 import io.ktor.server.auth.*

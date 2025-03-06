@@ -1,4 +1,4 @@
-package br.com.finlegacy.api.features.banks.controller.delete
+package br.com.finlegacy.api.features.banks.controller.routes
 
 import br.com.finlegacy.api.core.extensions.*
 import br.com.finlegacy.api.core.result.handleResult
@@ -15,7 +15,10 @@ fun Route.deleteBank() {
     delete("/v1/banks/{id}") {
         try {
             val uidLogged = call.extractUidOrRespondUnauthorized() ?: return@delete
-            val id = call.extractParameter<Long>("id")?: return@delete
+            val id = call.parameters["id"]?.toLongOrNull()?: run {
+                call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Bank ID is required"))
+                return@delete
+            }
 
             service.delete(id, uidLogged).handleResult(call) {
                 call.respond(HttpStatusCode.OK)

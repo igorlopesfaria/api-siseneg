@@ -6,7 +6,6 @@ import br.com.finlegacy.api.features.maritalStatus.domain.model.MaritalStatusInf
 import br.com.finlegacy.api.features.occupations.domain.model.OccupationInfo
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class PatientInfo(
     val id: Long,
     val fullName: String,

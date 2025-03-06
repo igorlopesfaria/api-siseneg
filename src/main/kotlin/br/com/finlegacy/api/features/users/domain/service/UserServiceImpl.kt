@@ -17,7 +17,7 @@ class UserServiceImpl(
 ) : UserService {
 
     private val json = Json { encodeDefaults = true } // Configure JSON serializer
-    override suspend fun findByUid(uid: String, uidLogged: String): Result<UserInfo> {
+    override suspend fun findByUid(uid: String, uidLogged: String): Result<User> {
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("User Logged")
             if (!userLogged.userProfile.isSysAdmin && userLogged.uid != uid) throw ForbiddenException()
@@ -28,7 +28,7 @@ class UserServiceImpl(
         )
     }
 
-    override suspend fun findAll( uidLogged: String): Result<List<UserInfo>> {
+    override suspend fun findAll( uidLogged: String): Result<List<User>> {
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("User Logged")
             if (!userLogged.userProfile.isSysAdmin) throw ForbiddenException()
@@ -68,7 +68,7 @@ class UserServiceImpl(
         )
     }
 
-    override suspend fun update(userUpdate: UserUpdate, uidLogged: String): Result<UserInfo> {
+    override suspend fun update(userUpdate: UserUpdate, uidLogged: String): Result<User> {
         return runCatching {
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("Logged user")
             if (!userLogged.userProfile.isSysAdmin && userLogged.uid != userUpdate.uid) throw ForbiddenException()
@@ -83,7 +83,7 @@ class UserServiceImpl(
         )
     }
 
-    override suspend fun create(userCreate: UserCreate, uidLogged: String): Result<UserInfo> {
+    override suspend fun create(userCreate: UserCreate, uidLogged: String): Result<User> {
         return runCatching {
 
             val userLogged = userRepository.findByUid(uidLogged) ?: throw ItemNotFoundException("Logged user")

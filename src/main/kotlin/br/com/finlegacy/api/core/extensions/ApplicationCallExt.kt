@@ -4,7 +4,6 @@ import br.com.finlegacy.api.core.extensions.ValidationType.*
 import br.com.finlegacy.api.core.jwt.JwtConfig
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.plugins.*
 import io.ktor.server.response.*
 
 suspend fun ApplicationCall.extractUidOrRespondUnauthorized(): String? {

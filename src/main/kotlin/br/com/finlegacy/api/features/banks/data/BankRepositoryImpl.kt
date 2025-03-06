@@ -2,24 +2,24 @@ package br.com.finlegacy.api.features.banks.data
 
 import br.com.finlegacy.api.core.transaction.suspendTransaction
 import br.com.finlegacy.api.features.banks.data.entity.BankEntity
-import br.com.finlegacy.api.features.banks.data.mapper.entityToModel
-import br.com.finlegacy.api.features.banks.domain.model.BankCreate
-import br.com.finlegacy.api.features.banks.domain.model.BankInfo
-import br.com.finlegacy.api.features.banks.domain.model.BankUpdate
+import br.com.finlegacy.api.features.banks.data.entity.mapper.entityToModel
+import br.com.finlegacy.api.features.banks.controller.dto.request.BankCreateRequest
+import br.com.finlegacy.api.features.banks.domain.model.Bank
+import br.com.finlegacy.api.features.banks.controller.dto.request.BankUpdateRequest
 import br.com.finlegacy.api.features.banks.domain.repository.BankRepository
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 
 class BankRepositoryImpl: BankRepository{
 
-    override suspend fun findById(id: Long): BankInfo? {
+    override suspend fun findById(id: Long): Bank? {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             BankEntity.findById(id)?.entityToModel()
         }
     }
 
-    override suspend fun findAll(): List<BankInfo> {
+    override suspend fun findAll(): List<Bank> {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             BankEntity.all().toList().map { item ->
@@ -38,21 +38,21 @@ class BankRepositoryImpl: BankRepository{
         }
     }
 
-    override suspend fun update(bankUpdate: BankUpdate): BankInfo? {
+    override suspend fun update(bankUpdateRequest: BankUpdateRequest): Bank? {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
-            BankEntity.findByIdAndUpdate(bankUpdate.id) { item ->
-                item.name = bankUpdate.name
-                item.code = bankUpdate.code
+            BankEntity.findByIdAndUpdate(bankUpdateRequest.id) { item ->
+                item.name = bankUpdateRequest.name
+                item.code = bankUpdateRequest.code
             }?.entityToModel()
         }
     }
 
-    override suspend fun create(bankCreate: BankCreate): BankInfo {
+    override suspend fun create(bankCreateRequest: BankCreateRequest): Bank {
         return suspendTransaction {
             BankEntity.new {
-                name = bankCreate.name
-                code = bankCreate.code
+                this.name = bankCreateRequest.name
+                this.code = bankCreateRequest.code
             }.entityToModel()
         }
     }

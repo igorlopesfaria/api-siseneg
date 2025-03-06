@@ -9,7 +9,7 @@ import br.com.finlegacy.api.features.users.data.entity.UserEntity
 import br.com.finlegacy.api.features.users.data.table.UserTable
 import br.com.finlegacy.api.features.users.data.mapper.entityToModel
 import br.com.finlegacy.api.features.users.domain.model.UserCreate
-import br.com.finlegacy.api.features.users.domain.model.UserInfo
+import br.com.finlegacy.api.features.users.domain.model.User
 import br.com.finlegacy.api.features.userProfiles.data.entity.UserProfileEntity
 import br.com.finlegacy.api.features.users.domain.model.UserUpdate
 import br.com.finlegacy.api.features.users.domain.repository.UserRepository
@@ -20,7 +20,7 @@ import java.util.UUID
 
 class UserRepositoryImpl: UserRepository{
 
-    override suspend fun login(userName: String, password: String): UserInfo? {
+    override suspend fun login(userName: String, password: String): User? {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             UserEntity.find {
@@ -28,7 +28,7 @@ class UserRepositoryImpl: UserRepository{
             }.firstOrNull()?.entityToModel() // Return the first matching user or null if no match
         }
     }
-    override suspend fun findByUid(uid: String): UserInfo? {
+    override suspend fun findByUid(uid: String): User? {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             UserEntity.find {
@@ -37,7 +37,7 @@ class UserRepositoryImpl: UserRepository{
         }
     }
 
-    override suspend fun findByEmail(email: String):UserInfo? {
+    override suspend fun findByEmail(email: String):User? {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             UserEntity.find {
@@ -48,7 +48,7 @@ class UserRepositoryImpl: UserRepository{
 
 
 
-    override suspend fun findAll(): List<UserInfo> {
+    override suspend fun findAll(): List<User> {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             UserEntity.all().toList().map { item ->
@@ -57,7 +57,7 @@ class UserRepositoryImpl: UserRepository{
         }
     }
 
-    override suspend fun findByUserName(userName: String): UserInfo? {
+    override suspend fun findByUserName(userName: String): User? {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             UserEntity.find {
@@ -78,7 +78,7 @@ class UserRepositoryImpl: UserRepository{
         }
     }
 
-    override suspend fun update(userUpdate: UserUpdate): UserInfo? {
+    override suspend fun update(userUpdate: UserUpdate): User? {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             val matchingUser = UserEntity.find { UserTable.uid eq userUpdate.uid }.singleOrNull()
@@ -91,7 +91,7 @@ class UserRepositoryImpl: UserRepository{
         }
     }
 
-    override suspend fun create(userCreate: UserCreate): UserInfo {
+    override suspend fun create(userCreate: UserCreate): User {
         return suspendTransaction {
             try {
                 addLogger(StdOutSqlLogger)

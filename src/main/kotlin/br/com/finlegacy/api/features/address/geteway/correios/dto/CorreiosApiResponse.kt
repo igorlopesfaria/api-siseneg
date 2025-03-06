@@ -1,4 +1,4 @@
-package br.com.finlegacy.api.features.address.getway.correios.dto
+package br.com.finlegacy.api.features.address.geteway.correios.dto
 
 import kotlinx.serialization.Serializable
 

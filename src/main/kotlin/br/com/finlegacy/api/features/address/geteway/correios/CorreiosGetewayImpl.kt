@@ -1,7 +1,7 @@
-package br.com.finlegacy.api.features.address.getway.correios
+package br.com.finlegacy.api.features.address.geteway.correios
 
-import br.com.finlegacy.api.features.address.getway.correios.dto.CorreiosApiResponse
-import br.com.finlegacy.api.features.address.getway.correios.mapper.responseToModel
+import br.com.finlegacy.api.features.address.geteway.correios.dto.CorreiosApiResponse
+import br.com.finlegacy.api.features.address.geteway.correios.dto.mapper.responseToModel
 import br.com.finlegacy.api.features.address.domain.model.Address
 import br.com.finlegacy.api.features.address.domain.getway.AddressGetway
 import io.ktor.client.*
@@ -10,7 +10,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.supervisorScope
 
-class CorreiosGetwayImpl(
+class CorreiosGetewayImpl(
     private val client : HttpClient
 ): AddressGetway {
 
