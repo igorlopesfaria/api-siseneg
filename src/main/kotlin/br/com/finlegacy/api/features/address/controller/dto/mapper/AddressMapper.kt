@@ -1,6 +1,6 @@
-package br.com.finlegacy.api.features.address.controller.find.mapper
+package br.com.finlegacy.api.features.address.controller.dto.mapper
 
-import br.com.finlegacy.api.features.address.controller.find.dto.AddressResponse
+import br.com.finlegacy.api.features.address.controller.dto.AddressResponse
 import br.com.finlegacy.api.features.address.domain.model.Address
 
 fun Address.modelToDTO() = AddressResponse(

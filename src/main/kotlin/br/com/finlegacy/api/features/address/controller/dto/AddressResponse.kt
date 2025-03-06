@@ -1,4 +1,4 @@
-package br.com.finlegacy.api.features.address.controller.find.dto
+package br.com.finlegacy.api.features.address.controller.dto
 
 import kotlinx.serialization.Serializable
 

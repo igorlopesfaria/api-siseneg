@@ -1,4 +1,4 @@
-package br.com.finlegacy.api.features.authentication.controller.mapper
+package br.com.finlegacy.api.features.authentication.controller.dto.mapper
 
 import br.com.finlegacy.api.features.authentication.controller.dto.response.AuthenticationResponse
 import br.com.finlegacy.api.features.authentication.domain.model.Authentication

@@ -3,7 +3,7 @@ package br.com.finlegacy.api.features.authentication.controller.routes
 import br.com.finlegacy.api.core.extensions.respondUnexpectedError
 import br.com.finlegacy.api.core.result.handleResult
 import br.com.finlegacy.api.features.authentication.controller.dto.request.LoginRequest
-import br.com.finlegacy.api.features.authentication.controller.mapper.modelToResponse
+import br.com.finlegacy.api.features.authentication.controller.dto.mapper.modelToResponse
 import br.com.finlegacy.api.features.authentication.domain.service.AuthenticationService
 import io.ktor.http.*
 import io.ktor.server.application.*

@@ -1,8 +1,8 @@
-package br.com.finlegacy.api.features.address.controller.find
+package br.com.finlegacy.api.features.address.controller.routes
 
 import br.com.finlegacy.api.core.extensions.*
 import br.com.finlegacy.api.core.result.handleResult
-import br.com.finlegacy.api.features.address.controller.find.mapper.modelToDTO
+import br.com.finlegacy.api.features.address.controller.dto.mapper.modelToDTO
 import br.com.finlegacy.api.features.address.domain.service.AddressService
 import io.ktor.http.*
 import io.ktor.server.application.*
