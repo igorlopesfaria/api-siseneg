@@ -4,7 +4,6 @@ import br.com.finlegacy.api.core.result.Result
 import br.com.finlegacy.api.core.worker.EmailMessage
 import br.com.finlegacy.api.features.users.domain.model.UserCreate
 import br.com.finlegacy.api.features.users.domain.model.UserInfo
-import br.com.finlegacy.api.features.authentication.domain.model.AuthenticationLogin
 import br.com.finlegacy.api.features.procedures.domain.model.ProcedureInfo
 import br.com.finlegacy.api.features.users.domain.model.UserUpdate
 

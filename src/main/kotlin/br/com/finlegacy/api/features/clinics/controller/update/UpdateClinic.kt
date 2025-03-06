@@ -27,13 +27,13 @@ fun Route.updateClinic() {
                 if (!isValid) return@put
             }
 
-            call.validateRequestField(value = clinicUpdate.addressInfo.cep, customFieldMessageError = "address.CEP", type = ValidationType.CEP).let { isValid ->
+            call.validateRequestField(value = clinicUpdate.address.cep, customFieldMessageError = "address.CEP", type = ValidationType.CEP).let { isValid ->
                 if (!isValid) return@put
             }
-            call.validateRequestField(value = clinicUpdate.addressInfo.city, customFieldMessageError = "address.city", type = ValidationType.NOT_BLANK).let { isValid ->
+            call.validateRequestField(value = clinicUpdate.address.city, customFieldMessageError = "address.city", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@put
             }
-            call.validateRequestField(value = clinicUpdate.addressInfo.state, customFieldMessageError = "address.state", type = ValidationType.NOT_BLANK).let { isValid ->
+            call.validateRequestField(value = clinicUpdate.address.state, customFieldMessageError = "address.state", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@put
             }
 

@@ -49,12 +49,12 @@ class ClinicRepositoryImpl: ClinicRepository{
                 item.name = clinicUpdate.name
                 item.cnpj = clinicUpdate.cnpj
 
-                item.addressCEP = clinicUpdate.addressInfo.cep
-                item.addressStreet = clinicUpdate.addressInfo.street
-                item.addressNumber = clinicUpdate.addressInfo.number
-                item.addressNeighborhood = clinicUpdate.addressInfo.neighborhood
-                item.addressCity = clinicUpdate.addressInfo.city
-                item.addressState = clinicUpdate.addressInfo.state
+                item.addressCEP = clinicUpdate.address.cep
+                item.addressStreet = clinicUpdate.address.street
+                item.addressNumber = clinicUpdate.address.number
+                item.addressNeighborhood = clinicUpdate.address.neighborhood
+                item.addressCity = clinicUpdate.address.city
+                item.addressState = clinicUpdate.address.state
 
                 item.bank = matchingBank
                 item.bankBranchCode = clinicUpdate.bankBranchCode
@@ -71,12 +71,12 @@ class ClinicRepositoryImpl: ClinicRepository{
                 name = clinicCreate.name
                 cnpj = clinicCreate.cnpj
 
-                addressCEP = clinicCreate.addressInfo.cep
-                addressStreet = clinicCreate.addressInfo.street
-                addressNumber = clinicCreate.addressInfo.number
-                addressNeighborhood = clinicCreate.addressInfo.neighborhood
-                addressCity = clinicCreate.addressInfo.city
-                addressState = clinicCreate.addressInfo.state
+                addressCEP = clinicCreate.address.cep
+                addressStreet = clinicCreate.address.street
+                addressNumber = clinicCreate.address.number
+                addressNeighborhood = clinicCreate.address.neighborhood
+                addressCity = clinicCreate.address.city
+                addressState = clinicCreate.address.state
 
                 bank = matchingBank
 

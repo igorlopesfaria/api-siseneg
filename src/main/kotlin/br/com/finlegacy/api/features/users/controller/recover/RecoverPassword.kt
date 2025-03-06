@@ -17,7 +17,6 @@ fun Route.recoverPassword() {
             val username = call.extractParameter<String>(
                 param = "username",
                 customErrorMessage = "Invalid Email format",
-                validationType = ValidationType.EMAIL
             )?: return@get
 
             service.sendRecoveryPassword(username).handleResult(call) { data ->

@@ -1,9 +1,9 @@
-package br.com.finlegacy.api.features.address.data.dto
+package br.com.finlegacy.api.features.address.getway.correios.dto
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AddressResponse (
+data class CorreiosApiResponse (
     val cep: String,
     val logradouro: String?,
     val complemento: String?,

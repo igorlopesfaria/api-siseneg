@@ -10,10 +10,9 @@ import br.com.finlegacy.api.features.users.data.table.UserTable
 import br.com.finlegacy.api.features.users.data.mapper.entityToModel
 import br.com.finlegacy.api.features.users.domain.model.UserCreate
 import br.com.finlegacy.api.features.users.domain.model.UserInfo
-import br.com.finlegacy.api.features.authentication.domain.model.AuthenticationLogin
+import br.com.finlegacy.api.features.userProfiles.data.entity.UserProfileEntity
 import br.com.finlegacy.api.features.users.domain.model.UserUpdate
 import br.com.finlegacy.api.features.users.domain.repository.UserRepository
-import io.ktor.client.*
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.and
@@ -21,11 +20,11 @@ import java.util.UUID
 
 class UserRepositoryImpl: UserRepository{
 
-    override suspend fun login(authenticationLogin: AuthenticationLogin): UserInfo? {
+    override suspend fun login(userName: String, password: String): UserInfo? {
         return suspendTransaction {
             addLogger(StdOutSqlLogger)
             UserEntity.find {
-                (UserTable.userName eq authenticationLogin.userName) and (UserTable.password eq authenticationLogin.encryptPassword())
+                (UserTable.userName eq userName) and (UserTable.password eq password)
             }.firstOrNull()?.entityToModel() // Return the first matching user or null if no match
         }
     }
@@ -99,6 +98,8 @@ class UserRepositoryImpl: UserRepository{
 
                 val clinicEntity = ClinicEntity.findById(userCreate.clinicId)
                     ?: throw ItemNotFoundException("Clinic")
+                val userProfileEntity = UserProfileEntity.findById(userCreate.clinicId)
+                    ?: throw ItemNotFoundException("User Profile")
 
                 var newUid: String
                 do {
@@ -109,6 +110,8 @@ class UserRepositoryImpl: UserRepository{
                     this.userName = userCreate.userName
                     this.password = userCreate.encryptPassword()
                     this.clinic = clinicEntity
+                    this.userProfile = userProfileEntity
+                    this.userName = userCreate.userName
                     this.uid = newUid
                 }.entityToModel()
             } catch (e: Exception) {

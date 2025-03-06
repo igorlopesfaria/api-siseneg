@@ -26,13 +26,13 @@ fun Route.createClinic() {
                 if (!isValid) return@post
             }
 
-            call.validateRequestField(value = clinicCreate.addressInfo.cep, customFieldMessageError = "address.CEP", type = ValidationType.CEP).let { isValid ->
+            call.validateRequestField(value = clinicCreate.address.cep, customFieldMessageError = "address.CEP", type = ValidationType.CEP).let { isValid ->
                 if (!isValid) return@post
             }
-            call.validateRequestField(value = clinicCreate.addressInfo.city, customFieldMessageError = "address.city", type = ValidationType.NOT_BLANK).let { isValid ->
+            call.validateRequestField(value = clinicCreate.address.city, customFieldMessageError = "address.city", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@post
             }
-            call.validateRequestField(value = clinicCreate.addressInfo.state, customFieldMessageError = "address.state", type = ValidationType.NOT_BLANK).let { isValid ->
+            call.validateRequestField(value = clinicCreate.address.state, customFieldMessageError = "address.state", type = ValidationType.NOT_BLANK).let { isValid ->
                 if (!isValid) return@post
             }
 

@@ -21,7 +21,6 @@ suspend fun ApplicationCall.respondUnexpectedError(message: String = "Unexpected
 suspend inline fun <reified T> ApplicationCall.extractParameter(
     param: String,
     customErrorMessage: String? = null,
-    validationType: ValidationType? = null,// Optional validation type parameter
     parameterType: ParameterType = ParameterType.PATH // Default to path parameter, set to false for query
 ): T? {
     val value = if (parameterType == ParameterType.PATH) {
@@ -39,30 +38,30 @@ suspend inline fun <reified T> ApplicationCall.extractParameter(
         String::class -> value as? T
         else -> null
     }
-    // If parsedValue is null, check if there's validation needed
-    parsedValue?.let {
-        // If validationType is provided, validate accordingly
-        validationType?.let { type ->
-            val isValid = when (type) {
-                NOT_BLANK -> value.isNotBlank()
-                ID -> value.toLongOrNull()?.takeIf { it > 0 } != null
-                EMAIL -> value.isValidEmail()  // Make sure you define this extension function
-                CNPJ -> value.isValidCNPJ()    // Make sure you define this extension function
-                CPF -> value.isValidCPF()      // Make sure you define this extension function
-                PHONE -> value.isValidPhoneNumber()  // Define this extension as well
-                CEP -> value.isValidCEP()      // Define this extension as well
-                RG -> value.isValidRG()        // Define this extension as well
-                BIRTH_DATE -> value.isValidBrazilianBirthDate()  // Define this extension as well
-                PASSWORD -> value.isValidPassword()  // Define this extension as well
-                PRICE -> value.isValidPrice()  // Define this extension as well
-                BOOL -> value.isValidBoolean()  // Define this extension as well
-            }
-
-            if (!isValid) {
-                throw BadRequestException(customErrorMessage ?: "$param must be valid")
-            }
-        }
-    }
+//    // If parsedValue is null, check if there's validation needed
+//    parsedValue?.let {
+//        // If validationType is provided, validate accordingly
+//        validationType?.let { type ->
+//            val isValid = when (type) {
+//                NOT_BLANK -> value.isNotBlank()
+//                ID -> value.toLongOrNull()?.takeIf { it > 0 } != null
+//                EMAIL -> value.isValidEmail()  // Make sure you define this extension function
+//                CNPJ -> value.isValidCNPJ()    // Make sure you define this extension function
+//                CPF -> value.isValidCPF()      // Make sure you define this extension function
+//                PHONE -> value.isValidPhoneNumber()  // Define this extension as well
+//                CEP -> value.isValidCEP()      // Define this extension as well
+//                RG -> value.isValidRG()        // Define this extension as well
+//                BIRTH_DATE -> value.isValidBrazilianBirthDate()  // Define this extension as well
+//                PASSWORD -> value.isValidPassword()  // Define this extension as well
+//                PRICE -> value.isValidPrice()  // Define this extension as well
+//                BOOL -> value.isValidBoolean()  // Define this extension as well
+//            }
+//
+//            if (!isValid) {
+//                throw BadRequestException(customErrorMessage ?: "$param must be valid")
+//            }
+//        }
+//    }
     if (parsedValue == null) {
         respondWithError(HttpStatusCode.BadRequest, customErrorMessage ?: "$param must be valid")
     }

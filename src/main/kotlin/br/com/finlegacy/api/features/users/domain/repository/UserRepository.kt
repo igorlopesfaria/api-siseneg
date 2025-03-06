@@ -2,12 +2,11 @@ package br.com.finlegacy.api.features.users.domain.repository
 
 import br.com.finlegacy.api.features.users.domain.model.UserCreate
 import br.com.finlegacy.api.features.users.domain.model.UserInfo
-import br.com.finlegacy.api.features.authentication.domain.model.AuthenticationLogin
 import br.com.finlegacy.api.features.users.domain.model.UserEmailRecover
 import br.com.finlegacy.api.features.users.domain.model.UserUpdate
 
 interface UserRepository {
-    suspend fun login(authenticationLogin: AuthenticationLogin): UserInfo?
+    suspend fun login(userName: String, password: String): UserInfo?
     suspend fun findByUserName(userName: String): UserInfo?
     suspend fun findByUid(uid: String): UserInfo?
     suspend fun findByEmail(email: String):UserInfo?

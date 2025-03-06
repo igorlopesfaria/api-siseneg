@@ -1,7 +1,7 @@
 package br.com.finlegacy.api.features.authentication.controller
 
-import br.com.finlegacy.api.features.authentication.controller.login.login
-import br.com.finlegacy.api.features.authentication.controller.refreshToken.refreshToken
+import br.com.finlegacy.api.features.authentication.controller.routes.login
+import br.com.finlegacy.api.features.authentication.controller.routes.refreshToken
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*

@@ -3,7 +3,7 @@ package br.com.finlegacy.api.features.address.domain.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AddressInfo(
+data class Address(
     val cep: String,
     val street: String?,
     val number: String?,
