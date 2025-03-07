@@ -19,6 +19,7 @@ class BankServiceImpl(
     override suspend fun findById(id: Long, uidLogged: String): Result<Bank> {
         return runCatching {
             if (!id.isValidId()) throw BadRequestException("Bank id")
+
             bankRepository.findById(id) ?: throw ItemNotFoundException("Bank")
         }.fold(
             onSuccess = { Result.Success(it) },
@@ -37,10 +38,8 @@ class BankServiceImpl(
 
     override suspend fun delete(id: Long, uidLogged: String): Result<Boolean> {
         return runCatching {
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true) throw ForbiddenException()
             if (!id.isValidId()) throw BadRequestException("Bank id")
-
-            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
-                throw ForbiddenException()
 
             if (bankRepository.delete(id)) {
                 true
@@ -55,12 +54,12 @@ class BankServiceImpl(
 
     override suspend fun update(bankUpdateRequest: BankUpdateRequest, uidLogged: String): Result<Bank> {
         return runCatching {
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true) throw ForbiddenException()
+
             if (!bankUpdateRequest.id.isValidId()) throw BadRequestException("Bank id")
             if (bankUpdateRequest.code <= 0) throw BadRequestException("Bank code")
             if (bankUpdateRequest.name.isEmpty()) throw BadRequestException("Bank name")
 
-            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
-                throw ForbiddenException()
 
             bankRepository.update(bankUpdateRequest) ?: throw ItemNotFoundException("Bank")
         }.fold(
@@ -71,11 +70,9 @@ class BankServiceImpl(
 
     override suspend fun create(bankCreateRequest: BankCreateRequest, uidLogged: String): Result<Bank> {
         return runCatching {
+            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true) throw ForbiddenException()
             if (bankCreateRequest.code <= 0) throw BadRequestException("Bank code")
             if (bankCreateRequest.name.isEmpty()) throw BadRequestException("Bank name")
-
-            if (userRepository.findByUid(uidLogged)?.userProfile?.isSysAdmin != true)
-                throw ForbiddenException()
 
             bankRepository.create(bankCreateRequest)
         }.fold(

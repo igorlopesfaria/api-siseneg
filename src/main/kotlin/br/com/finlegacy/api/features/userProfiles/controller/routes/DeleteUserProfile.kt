@@ -1,4 +1,4 @@
-package br.com.finlegacy.api.features.userProfiles.controller.delete
+package br.com.finlegacy.api.features.userProfiles.controller.routes
 
 import br.com.finlegacy.api.core.extensions.*
 import br.com.finlegacy.api.core.result.handleResult

@@ -1,9 +1,6 @@
 package br.com.finlegacy.api.features.userProfiles.domain.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class UserProfileUpdate (
+data class UserProfile (
     val id: Long,
     val name: String,
     val isAdmin: Boolean,

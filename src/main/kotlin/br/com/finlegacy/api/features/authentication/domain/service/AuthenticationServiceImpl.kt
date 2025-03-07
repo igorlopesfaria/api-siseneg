@@ -15,7 +15,7 @@ class AuthenticationServiceImpl(
 
     override suspend fun login(userName: String, password: String): Result<Authentication> {
         return runCatching {
-            if(!userName.isValidEmail()) throw BadRequestException("Invalid email")
+            if(!userName.isValidEmail()) throw BadRequestException("Email")
 
             val user = userRepository.login(userName, password.toEncrypt()) ?: throw ItemNotFoundException("User")
 
@@ -32,7 +32,7 @@ class AuthenticationServiceImpl(
 
             val uid = JwtConfig.verifier.verify(refreshToken).getClaim("uid").asString()
 
-            if (uid.isNullOrEmpty()) throw BadRequestException("Token invalid")
+            if (uid.isNullOrEmpty()) throw BadRequestException("Token")
             val user = userRepository.findByUid(uid) ?: throw ItemNotFoundException("User")
 
             Authentication(

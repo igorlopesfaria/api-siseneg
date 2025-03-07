@@ -3,21 +3,21 @@ package br.com.finlegacy.api.features.userProfiles.data
 import br.com.finlegacy.api.core.transaction.suspendTransaction
 import br.com.finlegacy.api.features.userProfiles.data.entity.UserProfileEntity
 import br.com.finlegacy.api.features.userProfiles.data.mapper.entityToModel
-import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileCreate
-import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileInfo
-import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfileUpdate
+import br.com.finlegacy.api.features.userProfiles.controller.dto.request.UserProfileCreateRequest
+import br.com.finlegacy.api.features.userProfiles.domain.model.UserProfile
+import br.com.finlegacy.api.features.userProfiles.controller.dto.request.UserProfileUpdateRequest
 import br.com.finlegacy.api.features.userProfiles.domain.repository.UserProfileRepository
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 
 class UserProfileRepositoryImpl: UserProfileRepository {
 
-    override suspend fun findById(id: Long): UserProfileInfo? = suspendTransaction {
+    override suspend fun findById(id: Long): UserProfile? = suspendTransaction {
         addLogger(StdOutSqlLogger)
         UserProfileEntity.findById(id)?.entityToModel()
     }
 
-    override suspend fun findAll(): List<UserProfileInfo> = suspendTransaction {
+    override suspend fun findAll(): List<UserProfile> = suspendTransaction {
         addLogger(StdOutSqlLogger)
         UserProfileEntity.all().toList().map { item ->
             item.entityToModel()
@@ -32,21 +32,21 @@ class UserProfileRepositoryImpl: UserProfileRepository {
         } ?: false
     }
 
-    override suspend fun update(userProfileUpdate: UserProfileUpdate): UserProfileInfo? = suspendTransaction {
+    override suspend fun update(userProfileUpdateRequest: UserProfileUpdateRequest): UserProfile? = suspendTransaction {
         addLogger(StdOutSqlLogger)
-        UserProfileEntity.findByIdAndUpdate(userProfileUpdate.id) { item ->
-            item.name = userProfileUpdate.name
-            item.isAdmin = userProfileUpdate.isAdmin
-            item.isSysAdmin = userProfileUpdate.isSysAdmin
+        UserProfileEntity.findByIdAndUpdate(userProfileUpdateRequest.id) { item ->
+            item.name = userProfileUpdateRequest.name
+            item.isAdmin = userProfileUpdateRequest.isAdmin
+            item.isSysAdmin = userProfileUpdateRequest.isSysAdmin
         }?.entityToModel()
     }
 
 
-    override suspend fun create(userProfileCreate: UserProfileCreate): UserProfileInfo = suspendTransaction {
+    override suspend fun create(userProfileCreateRequest: UserProfileCreateRequest): UserProfile = suspendTransaction {
         UserProfileEntity.new {
-            name = userProfileCreate.name
-            isAdmin = userProfileCreate.isAdmin
-            isSysAdmin = userProfileCreate.isSysAdmin
+            name = userProfileCreateRequest.name
+            isAdmin = userProfileCreateRequest.isAdmin
+            isSysAdmin = userProfileCreateRequest.isSysAdmin
         }.entityToModel()
     }
 }
